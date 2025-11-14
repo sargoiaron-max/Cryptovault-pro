@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Meta Tags -->
+    <title>CryptoVault Pro - Profile</title>
+    <meta name="description" content="Manage your CryptoVault Pro account and settings.">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="cryptovault-pro.png">
+    <link rel="apple-touch-icon" href="cryptovault-pro.png">
+    
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#ff6b35">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #1a1a1a;
+            color: #ffffff;
+            min-height: 100vh;
+            padding-bottom: 70px;
+            background-image: 
+                repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,255,255,.02) 10px, rgba(255,255,255,.02) 20px),
+                repeating-linear-gradient(-45deg, transparent, transparent 10px, rgba(255,255,255,.02) 10px, rgba(255,255,255,.02) 20px);
+        }
+
+        .header {
+            background: #2a2a2a;
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .app-title {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .language-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 8px 15px;
+            border-radius: 20px;
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 14px;
+        }
+
+        .notification-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .profile-section {
+            text-align: center;
+            padding: 30px 20px;
+        }
+
+        .profile-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #3b82f6, #60a5fa);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 48px;
+            color: white;
+            position: relative;
+            box-shadow: 0 8px 20px rgba(59, 130, 246, 0.4);
+        }
+
+        .edit-icon {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 35px;
+            height: 35px;
+            background: linear-gradient(135deg, #ff6b35, #f7931e);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 18px;
+            box-shadow: 0 4px 10px rgba(255, 107, 53, 0.4);
+        }
+
+        .profile-email {
+            font-size: 16px;
+            color: #ccc;
+            margin-bottom: 15px;
+        }
+
+        .confirm-btn {
+            background: linear-gradient(135deg, #ff6b35, #f7931e);
+            border: none;
+            padding: 12px 40px;
+            border-radius: 25px;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .menu-section {
+            background: #2a2a2a;
+            margin: 15px;
+            padding: 15px;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px;
+            cursor: pointer;
+            border-radius: 10px;
+            transition: background 0.2s;
+        }
+
+        .menu-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .menu-item-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .menu-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+
+        .menu-label {
+            font-size: 15px;
+        }
+
+        .menu-arrow {
+            color: #666;
+        }
+
+        .logout-btn {
+            background: rgba(255, 0, 0, 0.2);
+            border: 1px solid rgba(255, 0, 0, 0.4);
+            margin: 15px;
+            padding: 15px;
+            border-radius: 12px;
+            color: #ff4444;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #2a2a2a;
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.3);
+            z-index: 100;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            padding: 5px 15px;
+            cursor: pointer;
+            color: #999;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .nav-item.active {
+            color: #ff6b35;
+        }
+
+        .nav-icon {
+            font-size: 24px;
+        }
+
+        .nav-label {
+            font-size: 11px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-left">
+            <div class="logo">
+                <span>CV</span>
+            </div>
+            <div class="app-title" data-translate="appName">Luno mining</div>
+        </div>
+        <div class="header-right">
+            <button class="language-btn" id="langBtn">
+                <span>🌐</span>
+                <span id="currentLang">English</span>
+            </button>
+            <button class="notification-btn">
+                <span>🔔</span>
+            </button>
+        </div>
+    </div>
+
+    <div class="profile-section">
+        <div class="profile-avatar">
+            <span id="userInitial">👤</span>
+            <div class="edit-icon">✏️</div>
+        </div>
+        <div class="profile-email" id="userEmail">Loading...</div>
+        <button class="confirm-btn" data-translate="confirm">CONFIRM</button>
+    </div>
+
+    <div class="menu-section">
+        <div class="menu-item" onclick="alert('Coming soon!')">
+            <div class="menu-item-left">
+                <div class="menu-icon">🏦</div>
+                <div class="menu-label" data-translate="recharge">Recharge</div>
+            </div>
+            <div class="menu-arrow">›</div>
+        </div>
+        <div class="menu-item" onclick="alert('Coming soon!')">
+            <div class="menu-item-left">
+                <div class="menu-icon">💸</div>
+                <div class="menu-label" data-translate="withdraw">Withdraw</div>
+            </div>
+            <div class="menu-arrow">›</div>
+        </div>
+        <div class="menu-item" onclick="alert('Coming soon!')">
+            <div class="menu-item-left">
+                <div class="menu-icon">📊</div>
+                <div class="menu-label" data-translate="financialRecords">Financial Records</div>
+            </div>
+            <div class="menu-arrow">›</div>
+        </div>
+        <div class="menu-item" onclick="alert('Coming soon!')">
+            <div class="menu-item-left">
+                <div class="menu-icon">💱</div>
+                <div class="menu-label" data-translate="wUsdt">W&USDT</div>
+            </div>
+            <div class="menu-arrow">›</div>
+        </div>
+        <div class="menu-item" onclick="alert('Coming soon!')">
+            <div class="menu-item-left">
+                <div class="menu-icon">➡️</div>
+                <div class="menu-label" data-translate="transfer">Transfer</div>
+            </div>
+            <div class="menu-arrow">›</div>
+        </div>
+    </div>
+
+    <div class="menu-section">
+        <div class="menu-item" onclick="alert('Coming soon!')">
+            <div class="menu-item-left">
+                <div class="menu-icon">📧</div>
+                <div class="menu-label" data-translate="invite">Invite</div>
+            </div>
+            <div class="menu-arrow">›</div>
+        </div>
+        <div class="menu-item" onclick="alert('Coming soon!')">
+            <div class="menu-item-left">
+                <div class="menu-icon">🔑</div>
+                <div class="menu-label" data-translate="loginPassword">Login Password</div>
+            </div>
+            <div class="menu-arrow">›</div>
+        </div>
+        <div class="menu-item" onclick="alert('Coming soon!')">
+            <div class="menu-item-left">
+                <div class="menu-icon">🔒</div>
+                <div class="menu-label" data-translate="securityPassword">Security Password</div>
+            </div>
+            <div class="menu-arrow">›</div>
+        </div>
+        <div class="menu-item" onclick="alert('Coming soon!')">
+            <div class="menu-item-left">
+                <div class="menu-icon">❓</div>
+                <div class="menu-label" data-translate="faq">FAQ</div>
+            </div>
+            <div class="menu-arrow">›</div>
+        </div>
+        <div class="menu-item" onclick="alert('Coming soon!')">
+            <div class="menu-item-left">
+                <div class="menu-icon">ℹ️</div>
+                <div class="menu-label" data-translate="aboutUs">About Us</div>
+            </div>
+            <div class="menu-arrow">›</div>
+        </div>
+        <div class="menu-item" onclick="alert('Coming soon!')">
+            <div class="menu-item-left">
+                <div class="menu-icon">🎧</div>
+                <div class="menu-label" data-translate="contactService">Contact Customer Service</div>
+            </div>
+            <div class="menu-arrow">›</div>
+        </div>
+    </div>
+
+    <div class="logout-btn" onclick="logout()" data-translate="logout">LogOut</div>
+
+    <div class="bottom-nav">
+        <a href="Mine.html" class="nav-item">
+            <div class="nav-icon">⛏️</div>
+            <div class="nav-label" data-translate="mine">Mine</div>
+        </a>
+        <a href="Leaderboard.html" class="nav-item">
+            <div class="nav-icon">🏆</div>
+            <div class="nav-label" data-translate="leaderboard">Leaderboard</div>
+        </a>
+        <a href="Upgrade.html" class="nav-item">
+            <div class="nav-icon">🚀</div>
+            <div class="nav-label" data-translate="upgrade">Upgrade</div>
+        </a>
+        <a href="Team.html" class="nav-item">
+            <div class="nav-icon">👥</div>
+            <div class="nav-label" data-translate="team">Team</div>
+        </a>
+        <a href="Me.html" class="nav-item active">
+            <div class="nav-icon">👤</div>
+            <div class="nav-label" data-translate="me">Me</div>
+        </a>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js';
+        import { getAuth, onAuthStateChanged, signOut } from 'https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js';
+        
+        const firebaseConfig = {
+            apiKey: "AIzaSyBtx-D3nbl1lKOhCzEixDZRgRDM4NbtOBE",
+            authDomain: "swiftauth-5fcb5.firebaseapp.com",
+            projectId: "swiftauth-5fcb5",
+            storageBucket: "swiftauth-5fcb5.firebasestorage.app",
+            messagingSenderId: "990160652137",
+            appId: "1:990160652137:web:abac238567edfdb5671ff8",
+            measurementId: "G-5C1DS28B5S"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        const translations = {
+            en: {
+                appName: "Luno mining",
+                confirm: "CONFIRM",
+                recharge: "Recharge",
+                withdraw: "Withdraw",
+                financialRecords: "Financial Records",
+                wUsdt: "W&USDT",
+                transfer: "Transfer",
+                invite: "Invite",
+                loginPassword: "Login Password",
+                securityPassword: "Security Password",
+                faq: "FAQ",
+                aboutUs: "About Us",
+                contactService: "Contact Customer Service",
+                logout: "LogOut",
+                mine: "Mine",
+                leaderboard: "Leaderboard",
+                upgrade: "Upgrade",
+                team: "Team",
+                me: "Me"
+            },
+            zh: {
+                appName: "月球挖矿",
+                confirm: "确认",
+                recharge: "充值",
+                withdraw: "提现",
+                financialRecords: "财务记录",
+                wUsdt: "W&USDT",
+                transfer: "转账",
+                invite: "邀请",
+                loginPassword: "登录密码",
+                securityPassword: "安全密码",
+                faq: "常见问题",
+                aboutUs: "关于我们",
+                contactService: "联系客服",
+                logout: "退出登录",
+                mine: "挖矿",
+                leaderboard: "排行榜",
+                upgrade: "升级",
+                team: "团队",
+                me: "我的"
+            }
+        };
+
+        let currentLang = localStorage.getItem('language') || 'en';
+        const languages = [{ code: 'en', name: 'English' }, { code: 'zh', name: '繁体中文' }];
+        let languageIndex = languages.findIndex(lang => lang.code === currentLang);
+
+        function translatePage() {
+            const trans = translations[currentLang] || translations.en;
+            document.querySelectorAll('[data-translate]').forEach(el => {
+                const key = el.getAttribute('data-translate');
+                if (trans[key]) el.textContent = trans[key];
+            });
+        }
+
+        document.getElementById('langBtn').addEventListener('click', () => {
+            languageIndex = (languageIndex + 1) % languages.length;
+            currentLang = languages[languageIndex].code;
+            localStorage.setItem('language', currentLang);
+            document.getElementById('currentLang').textContent = languages[languageIndex].name;
+            translatePage();
+        });
+
+        function checkSession() {
+            const sessionData = localStorage.getItem('userSession');
+            if (!sessionData) { window.location.href = 'auth.html'; return false; }
+            try {
+                const session = JSON.parse(sessionData);
+                if (new Date().getTime() - session.timestamp >= 24 * 60 * 60 * 1000) {
+                    localStorage.removeItem('userSession');
+                    window.location.href = 'auth.html';
+                    return false;
+                }
+                return session;
+            } catch (error) {
+                localStorage.removeItem('userSession');
+                window.location.href = 'auth.html';
+                return false;
+            }
+        }
+
+        const session = checkSession();
+        if (session) {
+            const email = session.email;
+            document.getElementById('userEmail').textContent = email;
+            const initials = email.substring(0, 1).toUpperCase();
+            document.getElementById('userInitial').textContent = initials;
+        }
+
+        window.logout = async function() {
+            try {
+                await signOut(auth);
+                localStorage.removeItem('userSession');
+                localStorage.removeItem('rememberMe');
+                localStorage.removeItem('userEmail');
+                window.location.href = 'auth.html';
+            } catch (error) {
+                console.error('Logout error:', error);
+                alert('Error logging out. Please try again.');
+            }
+        };
+
+        onAuthStateChanged(auth, (user) => {
+            if (!user) {
+                localStorage.removeItem('userSession');
+                window.location.href = 'auth.html';
+            }
+        });
+
+        translatePage();
+        document.getElementById('currentLang').textContent = languages[languageIndex].name;
+    </script>
+</body>
+</html>

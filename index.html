@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Meta Tags -->
+    <title>CryptoVault Pro - Mining Dashboard</title>
+    <meta name="description" content="Start mining cryptocurrency with CryptoVault Pro. Track your earnings, manage your wallet, and upgrade your mining tools.">
+    <meta name="keywords" content="cryptocurrency, crypto mining, bitcoin mining, crypto wallet, mining dashboard">
+    <meta name="author" content="CryptoVault Pro">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="cryptovault-pro.png">
+    <link rel="apple-touch-icon" href="cryptovault-pro.png">
+    
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#ff6b35">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #1a1a1a;
+            color: #ffffff;
+            min-height: 100vh;
+            padding-bottom: 70px;
+            background-image: 
+                repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,255,255,.02) 10px, rgba(255,255,255,.02) 20px),
+                repeating-linear-gradient(-45deg, transparent, transparent 10px, rgba(255,255,255,.02) 10px, rgba(255,255,255,.02) 20px);
+        }
+
+        /* Header */
+        .header {
+            background: #2a2a2a;
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .logo img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .app-title {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .language-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 8px 15px;
+            border-radius: 20px;
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 14px;
+        }
+
+        .notification-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* User Profile Card */
+        .user-card {
+            background: linear-gradient(135deg, #d32f2f 0%, #b71c1c 100%);
+            margin: 15px;
+            padding: 15px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 4px 15px rgba(211, 47, 47, 0.3);
+        }
+
+        .user-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ff6b35, #f7931e);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .user-info {
+            flex: 1;
+        }
+
+        .user-email {
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .user-level {
+            background: linear-gradient(135deg, #ff6b35, #f7931e);
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: bold;
+            display: inline-block;
+        }
+
+        /* Wallet Section */
+        .wallet-card {
+            background: #2a2a2a;
+            margin: 15px;
+            padding: 20px;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .wallet-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .wallet-item:last-child {
+            border-bottom: none;
+        }
+
+        .wallet-label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #ccc;
+        }
+
+        .wallet-icon {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #10b981, #059669);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+        }
+
+        .wallet-amount {
+            font-size: 20px;
+            font-weight: bold;
+            color: #ff6b35;
+        }
+
+        /* Action Buttons Grid */
+        .actions-grid {
+            margin: 15px;
+            margin-bottom: 20px;
+            padding: 20px;
+            background: linear-gradient(135deg, rgba(255, 107, 53, 0.1) 0%, rgba(247, 147, 30, 0.1) 100%);
+            border: 2px solid rgba(255, 107, 53, 0.3);
+            border-radius: 15px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .actions-grid::after {
+            content: '';
+            position: absolute;
+            bottom: -50px;
+            right: -50px;
+            width: 200px;
+            height: 200px;
+            background: linear-gradient(135deg, #ff6b35, #f7931e);
+            border-radius: 50%;
+            opacity: 0.15;
+        }
+
+        .action-buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .action-btn {
+            background: rgba(42, 42, 42, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 15px 10px;
+            border-radius: 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .action-btn:active {
+            transform: scale(0.95);
+        }
+
+        .action-icon {
+            width: 45px;
+            height: 45px;
+            margin: 0 auto 8px;
+            background: linear-gradient(135deg, rgba(255, 107, 53, 0.2), rgba(247, 147, 30, 0.2));
+            border: 2px solid rgba(255, 107, 53, 0.5);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ff6b35;
+            font-size: 20px;
+        }
+
+        .action-label {
+            font-size: 12px;
+            color: #ccc;
+        }
+
+        /* Menu Section */
+        .menu-card {
+            background: #2a2a2a;
+            margin: 0 15px 15px 15px;
+            padding: 15px;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px;
+            cursor: pointer;
+            border-radius: 10px;
+            transition: background 0.2s;
+        }
+
+        .menu-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .menu-item-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .menu-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+
+        .menu-label {
+            font-size: 15px;
+        }
+
+        .menu-arrow {
+            color: #666;
+        }
+
+        /* Bottom Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #2a2a2a;
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.3);
+            z-index: 100;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            padding: 5px 15px;
+            cursor: pointer;
+            color: #999;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .nav-item.active {
+            color: #ff6b35;
+        }
+
+        .nav-icon {
+            font-size: 24px;
+        }
+
+        .nav-label {
+            font-size: 11px;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s;
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        .modal-content {
+            background: #2a2a2a;
+            padding: 30px;
+            border-radius: 20px;
+            max-width: 90%;
+            width: 400px;
+            animation: scaleIn 0.3s;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .modal-title {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .close-btn {
+            width: 30px;
+            height: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-body {
+            text-align: center;
+        }
+
+        .coming-soon {
+            padding: 40px 20px;
+            color: #999;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes scaleIn {
+            from {
+                transform: scale(0.9);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .action-buttons {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 10px;
+            }
+
+            .action-btn {
+                padding: 10px 5px;
+            }
+
+            .action-icon {
+                width: 40px;
+                height: 40px;
+                font-size: 18px;
+            }
+
+            .action-label {
+                font-size: 11px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <div class="header-left">
+            <div class="logo">
+                <span>CV</span>
+            </div>
+            <div class="app-title" data-translate="appName">Luno mining</div>
+        </div>
+        <div class="header-right">
+            <button class="language-btn" id="langBtn">
+                <span>🌐</span>
+                <span id="currentLang">English</span>
+            </button>
+            <button class="notification-btn" onclick="showModal('Notifications', 'No new notifications')">
+                <span>🔔</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- User Profile Card -->
+    <div class="user-card">
+        <div class="user-avatar" id="userAvatar">
+            ki
+        </div>
+        <div class="user-info">
+            <div class="user-email" id="userEmail">Loading...</div>
+            <span class="user-level">T 0</span>
+        </div>
+    </div>
+
+    <!-- Wallet Section -->
+    <div class="wallet-card">
+        <div class="wallet-item">
+            <div class="wallet-label">
+                <div class="wallet-icon">💎</div>
+                <span data-translate="wWallet">W</span>
+            </div>
+            <div class="wallet-amount">0.14</div>
+        </div>
+        <div class="wallet-item">
+            <div class="wallet-label">
+                <div class="wallet-icon">💰</div>
+                <span data-translate="profitWallet">Profit Wallet</span>
+            </div>
+            <div class="wallet-amount">0.00</div>
+        </div>
+        <div class="wallet-item">
+            <div class="wallet-label">
+                <div class="wallet-icon">💵</div>
+                <span data-translate="rechargeWallet">Recharge Wallet</span>
+            </div>
+            <div class="wallet-amount">0.00</div>
+        </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="actions-grid">
+        <div class="action-buttons">
+            <div class="action-btn" onclick="showComingSoon()">
+                <div class="action-icon">🏦</div>
+                <div class="action-label" data-translate="recharge">Recharge</div>
+            </div>
+            <div class="action-btn" onclick="showComingSoon()">
+                <div class="action-icon">💸</div>
+                <div class="action-label" data-translate="withdraw">Withdraw</div>
+            </div>
+            <div class="action-btn" onclick="showComingSoon()">
+                <div class="action-icon">📊</div>
+                <div class="action-label" data-translate="financialRecords">Financial Records</div>
+            </div>
+            <div class="action-btn" onclick="showComingSoon()">
+                <div class="action-icon">💱</div>
+                <div class="action-label" data-translate="wUsdt">W&USDT</div>
+            </div>
+        </div>
+        <div class="action-buttons">
+            <div class="action-btn" onclick="showComingSoon()">
+                <div class="action-icon">➡️</div>
+                <div class="action-label" data-translate="transfer">Transfer</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Menu Section -->
+    <div class="menu-card">
+        <div class="menu-item" onclick="showComingSoon()">
+            <div class="menu-item-left">
+                <div class="menu-icon">📧</div>
+                <div class="menu-label" data-translate="invite">Invite</div>
+            </div>
+            <div class="menu-arrow">›</div>
+        </div>
+        <div class="menu-item" onclick="showComingSoon()">
+            <div class="menu-item-left">
+                <div class="menu-icon">🔑</div>
+                <div class="menu-label" data-translate="loginPassword">Login Password</div>
+            </div>
+            <div class="menu-arrow">›</div>
+        </div>
+        <div class="menu-item" onclick="showComingSoon()">
+            <div class="menu-item-left">
+                <div class="menu-icon">🔒</div>
+                <div class="menu-label" data-translate="securityPassword">Security Password</div>
+            </div>
+            <div class="menu-arrow">›</div>
+        </div>
+        <div class="menu-item" onclick="showComingSoon()">
+            <div class="menu-item-left">
+                <div class="menu-icon">❓</div>
+                <div class="menu-label" data-translate="faq">FAQ</div>
+            </div>
+            <div class="menu-arrow">›</div>
+        </div>
+        <div class="menu-item" onclick="showComingSoon()">
+            <div class="menu-item-left">
+                <div class="menu-icon">ℹ️</div>
+                <div class="menu-label" data-translate="aboutUs">About Us</div>
+            </div>
+            <div class="menu-arrow">›</div>
+        </div>
+        <div class="menu-item" onclick="showComingSoon()">
+            <div class="menu-item-left">
+                <div class="menu-icon">🎧</div>
+                <div class="menu-label" data-translate="contactService">Contact Customer Service</div>
+            </div>
+            <div class="menu-arrow">›</div>
+        </div>
+        <div class="menu-item" onclick="logout()">
+            <div class="menu-item-left">
+                <div class="menu-icon">🚪</div>
+                <div class="menu-label" data-translate="logout">LogOut</div>
+            </div>
+            <div class="menu-arrow">›</div>
+        </div>
+    </div>
+
+    <!-- Bottom Navigation -->
+    <div class="bottom-nav">
+        <a href="Mine.html" class="nav-item active">
+            <div class="nav-icon">⛏️</div>
+            <div class="nav-label" data-translate="mine">Mine</div>
+        </a>
+        <a href="Leaderboard.html" class="nav-item">
+            <div class="nav-icon">🏆</div>
+            <div class="nav-label" data-translate="leaderboard">Leaderboard</div>
+        </a>
+        <a href="Upgrade.html" class="nav-item">
+            <div class="nav-icon">🚀</div>
+            <div class="nav-label" data-translate="upgrade">Upgrade</div>
+        </a>
+        <a href="Team.html" class="nav-item">
+            <div class="nav-icon">👥</div>
+            <div class="nav-label" data-translate="team">Team</div>
+        </a>
+        <a href="Me.html" class="nav-item">
+            <div class="nav-icon">👤</div>
+            <div class="nav-label" data-translate="me">Me</div>
+        </a>
+    </div>
+
+    <!-- Modal -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title" id="modalTitle">Modal Title</div>
+                <button class="close-btn" onclick="closeModal()">✕</button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                Modal content
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDK v9 -->
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js';
+        import { getAuth, onAuthStateChanged, signOut } from 'https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js';
+        
+        // Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyBtx-D3nbl1lKOhCzEixDZRgRDM4NbtOBE",
+            authDomain: "swiftauth-5fcb5.firebaseapp.com",
+            projectId: "swiftauth-5fcb5",
+            storageBucket: "swiftauth-5fcb5.firebasestorage.app",
+            messagingSenderId: "990160652137",
+            appId: "1:990160652137:web:abac238567edfdb5671ff8",
+            measurementId: "G-5C1DS28B5S"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        // Multi-language support
+        const translations = {
+            en: {
+                appName: "Luno mining",
+                wWallet: "W",
+                profitWallet: "Profit Wallet",
+                rechargeWallet: "Recharge Wallet",
+                recharge: "Recharge",
+                withdraw: "Withdraw",
+                financialRecords: "Financial Records",
+                wUsdt: "W&USDT",
+                transfer: "Transfer",
+                invite: "Invite",
+                loginPassword: "Login Password",
+                securityPassword: "Security Password",
+                faq: "FAQ",
+                aboutUs: "About Us",
+                contactService: "Contact Customer Service",
+                logout: "LogOut",
+                mine: "Mine",
+                leaderboard: "Leaderboard",
+                upgrade: "Upgrade",
+                team: "Team",
+                me: "Me",
+                comingSoon: "Coming Soon!",
+                thisFeature: "This feature will be available soon."
+            },
+            zh: {
+                appName: "月球挖矿",
+                wWallet: "W",
+                profitWallet: "利润钱包",
+                rechargeWallet: "充值钱包",
+                recharge: "充值",
+                withdraw: "提现",
+                financialRecords: "财务记录",
+                wUsdt: "W&USDT",
+                transfer: "转账",
+                invite: "邀请",
+                loginPassword: "登录密码",
+                securityPassword: "安全密码",
+                faq: "常见问题",
+                aboutUs: "关于我们",
+                contactService: "联系客服",
+                logout: "退出登录",
+                mine: "挖矿",
+                leaderboard: "排行榜",
+                upgrade: "升级",
+                team: "团队",
+                me: "我的",
+                comingSoon: "即将推出！",
+                thisFeature: "此功能即将推出。"
+            }
+        };
+
+        let currentLang = localStorage.getItem('language') || 'en';
+        const languages = [
+            { code: 'en', name: 'English' },
+            { code: 'zh', name: '繁体中文' }
+        ];
+        let languageIndex = languages.findIndex(lang => lang.code === currentLang);
+
+        function translatePage() {
+            const trans = translations[currentLang] || translations.en;
+            document.querySelectorAll('[data-translate]').forEach(el => {
+                const key = el.getAttribute('data-translate');
+                if (trans[key]) {
+                    el.textContent = trans[key];
+                }
+            });
+        }
+
+        // Language selector
+        document.getElementById('langBtn').addEventListener('click', () => {
+            languageIndex = (languageIndex + 1) % languages.length;
+            const selectedLang = languages[languageIndex];
+            currentLang = selectedLang.code;
+            localStorage.setItem('language', currentLang);
+            document.getElementById('currentLang').textContent = selectedLang.name;
+            translatePage();
+        });
+
+        // Session check
+        function checkSession() {
+            const sessionData = localStorage.getItem('userSession');
+            if (!sessionData) {
+                window.location.href = 'auth.html';
+                return false;
+            }
+
+            try {
+                const session = JSON.parse(sessionData);
+                const currentTime = new Date().getTime();
+                const sessionAge = currentTime - session.timestamp;
+                const twentyFourHours = 24 * 60 * 60 * 1000;
+
+                if (sessionAge >= twentyFourHours) {
+                    localStorage.removeItem('userSession');
+                    window.location.href = 'auth.html';
+                    return false;
+                }
+                return session;
+            } catch (error) {
+                console.error('Error checking session:', error);
+                localStorage.removeItem('userSession');
+                window.location.href = 'auth.html';
+                return false;
+            }
+        }
+
+        // Load user data
+        const session = checkSession();
+        if (session) {
+            const email = session.email;
+            document.getElementById('userEmail').textContent = email.substring(0, 2) + '****' + email.substring(email.indexOf('@'));
+            const initials = email.substring(0, 2).toLowerCase();
+            document.getElementById('userAvatar').textContent = initials;
+        }
+
+        // Firebase auth state
+        onAuthStateChanged(auth, (user) => {
+            if (!user) {
+                localStorage.removeItem('userSession');
+                window.location.href = 'auth.html';
+            }
+        });
+
+        // Logout function
+        window.logout = async function() {
+            try {
+                await signOut(auth);
+                localStorage.removeItem('userSession');
+                localStorage.removeItem('rememberMe');
+                localStorage.removeItem('userEmail');
+                window.location.href = 'auth.html';
+            } catch (error) {
+                console.error('Logout error:', error);
+                alert('Error logging out. Please try again.');
+            }
+        };
+
+        // Modal functions
+        window.showModal = function(title, content) {
+            document.getElementById('modalTitle').textContent = title;
+            document.getElementById('modalBody').innerHTML = `<div class="coming-soon">${content}</div>`;
+            document.getElementById('modal').classList.add('show');
+        };
+
+        window.closeModal = function() {
+            document.getElementById('modal').classList.remove('show');
+        };
+
+        window.showComingSoon = function() {
+            const trans = translations[currentLang] || translations.en;
+            showModal(trans.comingSoon, trans.thisFeature);
+        };
+
+        // Initialize
+        translatePage();
+        document.getElementById('currentLang').textContent = languages[languageIndex].name;
+    </script>
+</body>
+</html>

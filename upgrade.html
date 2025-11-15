@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Luno Mining - Upgrade</title>
+    <meta name="theme-color" content="#1a1a1a">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #1a1a1a;
+            color: #ffffff;
+            min-height: 100vh;
+            padding-bottom: 70px;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,255,255,.03) 10px, rgba(255,255,255,.03) 20px),
+                repeating-linear-gradient(-45deg, transparent, transparent 10px, rgba(255,255,255,.03) 10px, rgba(255,255,255,.03) 20px);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 480px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .user-card {
+            background: linear-gradient(135deg, rgba(255, 107, 53, 0.2), rgba(247, 147, 30, 0.2));
+            border: 2px solid rgba(255, 107, 53, 0.5);
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .user-avatar-large {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .user-info {
+            flex: 1;
+        }
+
+        .user-email {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .user-level {
+            display: inline-block;
+            background: linear-gradient(135deg, #ff6b35, #f7931e);
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .stat-box {
+            background: rgba(42, 42, 42, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: #999;
+            margin-bottom: 8px;
+        }
+
+        .stat-value {
+            font-size: 20px;
+            font-weight: bold;
+            color: #ff6b35;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 6px;
+            border-radius: 16px;
+        }
+
+        .tab {
+            flex: 1;
+            padding: 12px;
+            background: transparent;
+            border: none;
+            color: #999;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .tab.active {
+            background: linear-gradient(135deg, #ff6b35, #f7931e);
+            color: white;
+        }
+
+        .badge-new {
+            display: inline-block;
+            background: #ef4444;
+            color: white;
+            font-size: 10px;
+            padding: 2px 8px;
+            border-radius: 8px;
+            margin-left: 4px;
+        }
+
+        .tool-card {
+            background: rgba(42, 42, 42, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .tool-header {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 16px;
+        }
+
+        .tool-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #2a2a2a, #1a1a1a);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 16px;
+            font-size: 80px;
+        }
+
+        .tool-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .tool-stat {
+            text-align: center;
+        }
+
+        .tool-stat-label {
+            font-size: 12px;
+            color: #999;
+            margin-bottom: 4px;
+        }
+
+        .tool-stat-value {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .tool-stat-value.primary {
+            color: #ff6b35;
+        }
+
+        .tool-stat-value.success {
+            color: #10b981;
+        }
+
+        .buy-btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #ff6b35, #f7931e);
+            border: none;
+            border-radius: 50px;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .buy-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(255, 107, 53, 0.6);
+        }
+
+        .buy-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .purchase-history {
+            margin-top: 20px;
+        }
+
+        .history-header {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 12px;
+        }
+
+        .history-item {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 12px;
+        }
+
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(26, 26, 26, 0.95);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-around;
+            padding: 8px 0;
+            z-index: 100;
+        }
+
+        .nav-item {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            padding: 8px;
+            color: #999;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .nav-item.active {
+            color: #ff6b35;
+        }
+
+        .nav-icon {
+            width: 24px;
+            height: 24px;
+        }
+
+        .nav-label {
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="user-card" id="userCard">
+            <div class="user-avatar-large" id="userAvatar">U</div>
+            <div class="user-info">
+                <div class="user-email" id="userEmail">Loading...</div>
+                <span class="user-level" id="userLevel">T 0</span>
+            </div>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-box">
+                <div class="stat-label">Working Hours</div>
+                <div class="stat-value">24H</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-label">Mining Speed</div>
+                <div class="stat-value" id="miningSpeed">0.00 💎/H</div>
+            </div>
+        </div>
+
+        <div class="tabs">
+            <button class="tab active">Mining Tools <span class="badge-new">NEW</span></button>
+            <button class="tab" onclick="showHistory()">Upgrade</button>
+        </div>
+
+        <div id="toolsList"></div>
+
+        <div class="purchase-history" id="purchaseHistory" style="display:none;">
+            <div class="history-header">Purchase History →</div>
+            <div id="historyList"></div>
+        </div>
+    </div>
+
+    <nav class="bottom-nav">
+        <a href="index.html" class="nav-item">
+            <svg class="nav-icon" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5zm0 18c-4 0-7-3.58-7-8V8.3l7-3.11 7 3.11V12c0 4.42-3 8-7 8z"/>
+            </svg>
+            <span class="nav-label">Mine</span>
+        </a>
+        <a href="leaderboard.html" class="nav-item">
+            <svg class="nav-icon" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M16 11V3H8v6H2v12h20V11h-6zm-6-6h4v14h-4V5zm-6 6h4v8H4v-8zm16 8h-4v-6h4v6z"/>
+            </svg>
+            <span class="nav-label">Leaderboard</span>
+        </a>
+        <a href="upgrade.html" class="nav-item active">
+            <svg class="nav-icon" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"/>
+            </svg>
+            <span class="nav-label">Upgrade</span>
+        </a>
+        <a href="team.html" class="nav-item">
+            <svg class="nav-icon" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
+            </svg>
+            <span class="nav-label">Team</span>
+        </a>
+        <a href="me.html" class="nav-item">
+            <svg class="nav-icon" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+            </svg>
+            <span class="nav-label">Me</span>
+        </a>
+    </nav>
+
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js';
+        import { getAuth, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js';
+        import { getDatabase, ref, get, set, push } from 'https://www.gstatic.com/firebasejs/9.22.2/firebase-database.js';
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBtx-D3nbl1lKOhCzEixDZRgRDM4NbtOBE",
+            authDomain: "swiftauth-5fcb5.firebaseapp.com",
+            projectId: "swiftauth-5fcb5",
+            databaseURL: "https://swiftauth-5fcb5-default-rtdb.firebaseio.com",
+            storageBucket: "swiftauth-5fcb5.firebasestorage.app",
+            appId: "1:990160652137:web:abac238567edfdb5671ff8"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const database = getDatabase(app);
+
+        let currentUser = null;
+
+        const miningTools = [
+            { id: 'iq1', name: 'IQ 1', level: 1, dailyOutput: 4.00, price: 0, validDays: 365, icon: '🖥️' },
+            { id: 'iq2', name: 'IQ 2', level: 2, dailyOutput: 8.50, price: 50, validDays: 365, icon: '💻' },
+            { id: 'iq3', name: 'IQ 3', level: 3, dailyOutput: 15.00, price: 120, validDays: 365, icon: '🖲️' },
+        ];
+
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                currentUser = user;
+                await loadUserData();
+                displayTools();
+            } else {
+                window.location.href = 'auth_1763222786788.html';
+            }
+        });
+
+        async function loadUserData() {
+            if (!currentUser) return;
+
+            const userRef = ref(database, `users/${currentUser.uid}`);
+            const snapshot = await get(userRef);
+
+            if (snapshot.exists()) {
+                const userData = snapshot.val();
+                const initial = (userData.email || 'U')[0].toUpperCase();
+                
+                document.getElementById('userAvatar').textContent = initial;
+                document.getElementById('userEmail').textContent = 
+                    userData.email?.substring(0, 4) + '****' + userData.email?.substring(userData.email.indexOf('@'));
+                document.getElementById('miningSpeed').textContent = 
+                    `${(userData.miningPower || 0.14).toFixed(2)} 💎/H`;
+            }
+        }
+
+        function displayTools() {
+            const toolsList = document.getElementById('toolsList');
+            toolsList.innerHTML = '';
+
+            miningTools.forEach(tool => {
+                const toolCard = document.createElement('div');
+                toolCard.className = 'tool-card';
+                toolCard.innerHTML = `
+                    <div class="tool-header">${tool.name}</div>
+                    <div class="tool-image">${tool.icon}</div>
+                    <div class="tool-stats">
+                        <div class="tool-stat">
+                            <div class="tool-stat-label">Daily Output</div>
+                            <div class="tool-stat-value primary">💎 ${tool.dailyOutput.toFixed(2)}</div>
+                        </div>
+                        <div class="tool-stat">
+                            <div class="tool-stat-label">Valid Days</div>
+                            <div class="tool-stat-value success">${tool.validDays}Days</div>
+                        </div>
+                    </div>
+                    <button class="buy-btn" onclick="buyTool('${tool.id}', ${tool.price}, ${tool.dailyOutput})">
+                        ${tool.price === 0 ? 'FREE' : `BUY IT NOW - $${tool.price}`}
+                    </button>
+                `;
+                toolsList.appendChild(toolCard);
+            });
+        }
+
+        window.buyTool = async function(toolId, price, dailyOutput) {
+            if (!currentUser) return;
+
+            if (price > 0) {
+                const userRef = ref(database, `users/${currentUser.uid}`);
+                const snapshot = await get(userRef);
+                
+                if (snapshot.exists()) {
+                    const userData = snapshot.val();
+                    const wallet = userData.walletBalance || 0;
+
+                    if (wallet < price) {
+                        alert(`Insufficient balance! You need $${price} but have $${wallet.toFixed(2)}`);
+                        return;
+                    }
+                }
+            }
+
+            const confirmPurchase = confirm(`Purchase ${toolId.toUpperCase()} for ${price === 0 ? 'FREE' : '$' + price}?`);
+            if (!confirmPurchase) return;
+
+            const userRef = ref(database, `users/${currentUser.uid}`);
+            const snapshot = await get(userRef);
+
+            if (snapshot.exists()) {
+                const userData = snapshot.val();
+                const newPower = (userData.miningPower || 0.14) + (dailyOutput / 24);
+
+                await set(userRef, {
+                    ...userData,
+                    miningPower: newPower,
+                    walletBalance: (userData.walletBalance || 0) - price
+                });
+
+                const purchaseRef = ref(database, `purchases/${currentUser.uid}`);
+                await push(purchaseRef, {
+                    toolId,
+                    price,
+                    dailyOutput,
+                    purchaseDate: Date.now(),
+                    expiryDate: Date.now() + (365 * 24 * 60 * 60 * 1000)
+                });
+
+                alert('Purchase successful! Your mining power has increased!');
+                await loadUserData();
+            }
+        };
+
+        window.showHistory = function() {
+            const tools = document.getElementById('toolsList');
+            const history = document.getElementById('purchaseHistory');
+            
+            if (tools.style.display === 'none') {
+                tools.style.display = 'block';
+                history.style.display = 'none';
+                document.querySelectorAll('.tab')[0].classList.add('active');
+                document.querySelectorAll('.tab')[1].classList.remove('active');
+            } else {
+                tools.style.display = 'none';
+                history.style.display = 'block';
+                document.querySelectorAll('.tab')[0].classList.remove('active');
+                document.querySelectorAll('.tab')[1].classList.add('active');
+                loadPurchaseHistory();
+            }
+        };
+
+        async function loadPurchaseHistory() {
+            if (!currentUser) return;
+
+            const purchaseRef = ref(database, `purchases/${currentUser.uid}`);
+            const snapshot = await get(purchaseRef);
+
+            const historyList = document.getElementById('historyList');
+            historyList.innerHTML = '';
+
+            if (snapshot.exists()) {
+                const purchases = [];
+                snapshot.forEach(child => {
+                    purchases.push({ id: child.key, ...child.val() });
+                });
+
+                purchases.sort((a, b) => b.purchaseDate - a.purchaseDate).forEach(purchase => {
+                    const date = new Date(purchase.purchaseDate).toLocaleDateString();
+                    const item = document.createElement('div');
+                    item.className = 'history-item';
+                    item.innerHTML = `
+                        <div style="display:flex;justify-content:space-between;margin-bottom:8px;">
+                            <span style="font-weight:600;">${purchase.toolId.toUpperCase()}</span>
+                            <span style="color:#ff6b35;font-weight:bold;">$${purchase.price}</span>
+                        </div>
+                        <div style="font-size:14px;color:#999;">
+                            Daily Output: ${purchase.dailyOutput.toFixed(2)} 💎 | ${date}
+                        </div>
+                    `;
+                    historyList.appendChild(item);
+                });
+            } else {
+                historyList.innerHTML = '<div style="text-align:center;color:#999;padding:40px;">No purchases yet</div>';
+            }
+        }
+    </script>
+</body>
+</html>

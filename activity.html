@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Activity - WQF</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #000;
+            color: #fff;
+            min-height: 100vh;
+        }
+        .header {
+            padding: 16px 20px;
+            background: #000;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .back-btn {
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 0;
+        }
+        .header h1 {
+            font-size: 18px;
+            font-weight: 500;
+        }
+        .content {
+            padding: 40px 20px;
+            max-width: 480px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .empty-state {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+        .empty-icon {
+            width: 120px;
+            height: 120px;
+            opacity: 0.3;
+        }
+        .empty-text {
+            color: #666;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <button class="back-btn" onclick="history.back()">‹</button>
+        <h1>Activity</h1>
+    </div>
+    <div class="content">
+        <div class="empty-state">
+            <div class="empty-icon">📦</div>
+            <div class="empty-text">Empty</div>
+        </div>
+    </div>
+</body>
+</html>

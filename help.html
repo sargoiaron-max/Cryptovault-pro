@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Help Center - WQF</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #000;
+            color: #fff;
+            min-height: 100vh;
+        }
+        .header {
+            padding: 16px 20px;
+            background: #000;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .back-btn {
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 0;
+        }
+        .header h1 {
+            font-size: 18px;
+            font-weight: 500;
+        }
+        .content {
+            padding: 20px;
+            max-width: 480px;
+            margin: 0 auto;
+        }
+        .faq-list {
+            background: rgba(42, 42, 42, 0.8);
+            border-radius: 16px;
+            padding: 10px;
+        }
+        .faq-item {
+            padding: 18px 16px;
+            border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
+            cursor: pointer;
+            transition: background 0.2s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .faq-item:last-child {
+            border-bottom: none;
+        }
+        .faq-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+        .faq-question {
+            font-size: 15px;
+            color: #fff;
+            flex: 1;
+        }
+        .arrow {
+            color: #666;
+            font-size: 20px;
+            margin-left: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <button class="back-btn" onclick="history.back()">‹</button>
+        <h1>Help Center</h1>
+    </div>
+    <div class="content">
+        <div class="faq-list">
+            <div class="faq-item" onclick="showAnswer(1)">
+                <div class="faq-question">What are the advantages of WorldQuant Finance?</div>
+                <div class="arrow">›</div>
+            </div>
+            <div class="faq-item" onclick="showAnswer(2)">
+                <div class="faq-question">WorldQuant Finance's technological features</div>
+                <div class="arrow">›</div>
+            </div>
+            <div class="faq-item" onclick="showAnswer(3)">
+                <div class="faq-question">Operation and Security Assurance</div>
+                <div class="arrow">›</div>
+            </div>
+        </div>
+    </div>
+    <script>
+        const faqAnswers = {
+            1: "WorldQuant Finance advantages:\n\n✓ AI-Powered Trading: Advanced algorithms for precision\n✓ 24/7 Operation: Continuous market monitoring\n✓ High Returns: Competitive profit rates\n✓ Security: Blockchain-verified transactions\n✓ Global Access: Trade from anywhere",
+            2: "Technological Features:\n\n🔹 AI Quantitative Engine\n   - Cutting-edge algorithms\n   - Real-time market analysis\n   - Millisecond execution\n\n🔹 Massive Computing Power\n   - Distributed infrastructure\n   - Million data points/second\n   - 99.99% uptime\n\n🔹 Machine Learning\n   - Adaptive strategies\n   - Pattern recognition\n   - Risk optimization",
+            3: "Security Assurance:\n\n🔒 Multi-Layer Protection\n   - Blockchain verification\n   - Encrypted transactions\n   - Cold wallet storage\n\n🔒 Regulatory Compliance\n   - Licensed operations\n   - KYC/AML standards\n   - Regular audits\n\n🔒 24/7 Monitoring\n   - Real-time alerts\n   - Fraud detection\n   - Secure infrastructure"
+        };
+
+        function showAnswer(id) {
+            alert(faqAnswers[id]);
+        }
+    </script>
+</body>
+</html>

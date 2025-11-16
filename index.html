@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Luno Mining - Mine</title>
+    <meta name="theme-color" content="#1a1a1a">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #1a1a1a;
+            color: #ffffff;
+            min-height: 100vh;
+            padding-bottom: 70px;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,255,255,.03) 10px, rgba(255,255,255,.03) 20px),
+                repeating-linear-gradient(-45deg, transparent, transparent 10px, rgba(255,255,255,.03) 10px, rgba(255,255,255,.03) 20px);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .floating-shapes {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .shape {
+            position: absolute;
+            opacity: 0.1;
+            animation: float 20s infinite ease-in-out;
+        }
+
+        .shape:nth-child(1) {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #ff6b35, #f7931e);
+            border-radius: 50%;
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .shape:nth-child(2) {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            border-radius: 50%;
+            top: 60%;
+            left: 80%;
+            animation-delay: 2s;
+        }
+
+        .shape:nth-child(3) {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #ff6b35, #f7931e);
+            border-radius: 30%;
+            top: 80%;
+            left: 20%;
+            animation-delay: 4s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-30px) rotate(180deg); }
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 480px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 20px;
+            background: rgba(42, 42, 42, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .app-title {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .lang-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 8px 16px;
+            border-radius: 20px;
+            color: white;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .lang-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .mining-container {
+            background: rgba(42, 42, 42, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 24px;
+            padding: 32px 20px;
+            text-align: center;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .mining-fan {
+            width: 240px;
+            height: 240px;
+            margin: 0 auto 24px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .fan-image {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            filter: drop-shadow(0 0 20px rgba(79, 70, 229, 0.4));
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { 
+                filter: drop-shadow(0 0 20px rgba(79, 70, 229, 0.4));
+            }
+            50% { 
+                filter: drop-shadow(0 0 40px rgba(79, 70, 229, 0.7));
+            }
+        }
+
+        .mining-rate {
+            font-size: 14px;
+            color: #999;
+            margin-bottom: 12px;
+        }
+
+        .profit-display {
+            font-size: 48px;
+            font-weight: bold;
+            background: linear-gradient(135deg, #ff6b35, #f7931e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 8px;
+        }
+
+        .profit-label {
+            font-size: 16px;
+            color: #ccc;
+            margin-bottom: 24px;
+        }
+
+        .power-display {
+            font-size: 32px;
+            font-weight: bold;
+            color: #fff;
+            margin-bottom: 32px;
+        }
+
+        .claim-btn {
+            width: 100%;
+            max-width: 300px;
+            padding: 16px;
+            background: linear-gradient(135deg, #ff6b35, #f7931e);
+            border: none;
+            border-radius: 50px;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(255, 107, 53, 0.4);
+        }
+
+        .claim-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(255, 107, 53, 0.6);
+        }
+
+        .claim-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .withdraw-logs {
+            background: rgba(42, 42, 42, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .logs-header {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 16px;
+        }
+
+        .log-item {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .log-info {
+            flex: 1;
+        }
+
+        .log-message {
+            font-size: 14px;
+            color: #ccc;
+            margin-bottom: 4px;
+        }
+
+        .log-amount {
+            font-size: 18px;
+            font-weight: bold;
+            color: #ff6b35;
+        }
+
+        .log-status {
+            font-size: 12px;
+            padding: 4px 12px;
+            border-radius: 12px;
+            background: rgba(16, 185, 129, 0.2);
+            color: #10b981;
+        }
+
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(26, 26, 26, 0.95);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-around;
+            padding: 8px 0;
+            z-index: 100;
+        }
+
+        .nav-item {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            padding: 8px;
+            color: #999;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .nav-item.active {
+            color: #ff6b35;
+        }
+
+        .nav-icon {
+            width: 24px;
+            height: 24px;
+        }
+
+        .nav-label {
+            font-size: 12px;
+        }
+
+        @media (max-width: 360px) {
+            .mining-fan {
+                width: 160px;
+                height: 160px;
+            }
+            
+            .profit-display {
+                font-size: 36px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-shapes">
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <div class="logo">
+                <div class="logo-icon">🌙</div>
+                <span class="app-title">Luno mining</span>
+            </div>
+            <button class="lang-btn" id="langBtn">English</button>
+        </div>
+
+        <div class="mining-container">
+            <div class="mining-fan">
+                <img src="fan.gif" alt="Mining Fan" class="fan.gif">
+            </div>
+
+            <div class="mining-rate">TO</div>
+            <div class="profit-display" id="profitDisplay">0.00 W/H</div>
+            <div class="power-display" id="powerDisplay">0.14 W</div>
+
+            <button class="claim-btn" id="claimBtn">CLAIM PROFITS</button>
+        </div>
+
+        <div class="withdraw-logs">
+            <div class="logs-header">WithDraw Logs</div>
+            <div id="logsList"></div>
+        </div>
+    </div>
+
+    <nav class="bottom-nav">
+        <a href="index.html" class="nav-item active" data-testid="nav-mine">
+            <svg class="nav-icon" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5zm0 18c-4 0-7-3.58-7-8V8.3l7-3.11 7 3.11V12c0 4.42-3 8-7 8z"/>
+            </svg>
+            <span class="nav-label">Mine</span>
+        </a>
+        <a href="leaderboard.html" class="nav-item" data-testid="nav-leaderboard">
+            <svg class="nav-icon" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M16 11V3H8v6H2v12h20V11h-6zm-6-6h4v14h-4V5zm-6 6h4v8H4v-8zm16 8h-4v-6h4v6z"/>
+            </svg>
+            <span class="nav-label">Leaderboard</span>
+        </a>
+        <a href="upgrade.html" class="nav-item" data-testid="nav-upgrade">
+            <svg class="nav-icon" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"/>
+            </svg>
+            <span class="nav-label">Upgrade</span>
+        </a>
+        <a href="team.html" class="nav-item" data-testid="nav-team">
+            <svg class="nav-icon" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
+            </svg>
+            <span class="nav-label">Team</span>
+        </a>
+        <a href="me.html" class="nav-item" data-testid="nav-me">
+            <svg class="nav-icon" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+            </svg>
+            <span class="nav-label">Me</span>
+        </a>
+    </nav>
+
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js';
+        import { getAuth, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js';
+        import { getDatabase, ref, get, set, update } from 'https://www.gstatic.com/firebasejs/9.22.2/firebase-database.js';
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBtx-D3nbl1lKOhCzEixDZRgRDM4NbtOBE",
+            authDomain: "swiftauth-5fcb5.firebaseapp.com",
+            projectId: "swiftauth-5fcb5",
+            databaseURL: "https://swiftauth-5fcb5-default-rtdb.firebaseio.com",
+            storageBucket: "swiftauth-5fcb5.firebasestorage.app",
+            appId: "1:990160652137:web:abac238567edfdb5671ff8"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const database = getDatabase(app);
+
+        // Check session
+        function checkUserSession() {
+            const sessionData = localStorage.getItem('userSession');
+            if (!sessionData) return false;
+
+            try {
+                const session = JSON.parse(sessionData);
+                const currentTime = new Date().getTime();
+                const sessionAge = currentTime - session.timestamp;
+                const twentyFourHours = 24 * 60 * 60 * 1000;
+
+                if (sessionAge < twentyFourHours && session.email && session.userId) {
+                    return session;
+                }
+                return false;
+            } catch {
+                return false;
+            }
+        }
+
+        const session = checkUserSession();
+        if (!session) {
+            window.location.href = 'auth.html';
+        }
+
+        let currentUser = null;
+        let miningInterval = null;
+
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                currentUser = user;
+                await loadUserData();
+                startMining();
+            } else {
+                window.location.href = 'auth_1763222786788.html';
+            }
+        });
+
+        async function loadUserData() {
+            if (!currentUser) return;
+
+            const userRef = ref(database, `users/${currentUser.uid}`);
+            const snapshot = await get(userRef);
+
+            if (!snapshot.exists()) {
+                const invitationCode = Math.floor(100000 + Math.random() * 900000).toString();
+                await set(userRef, {
+                    email: currentUser.email,
+                    miningPower: 0.14,
+                    totalProfit: 0,
+                    claimableProfit: 0,
+                    walletBalance: 0,
+                    profitWallet: 0,
+                    rechargeWallet: 0,
+                    invitationCode: invitationCode,
+                    teamSize: 0,
+                    teamProfit: 0,
+                    lastClaimTime: Date.now(),
+                    createdAt: Date.now()
+                });
+            }
+
+            await updateDisplay();
+            await loadWithdrawLogs();
+        }
+
+        async function updateDisplay() {
+            if (!currentUser) return;
+
+            const userRef = ref(database, `users/${currentUser.uid}`);
+            const snapshot = await get(userRef);
+
+            if (snapshot.exists()) {
+                const userData = snapshot.val();
+                document.getElementById('profitDisplay').textContent = `${(userData.claimableProfit || 0).toFixed(2)} W/H`;
+                document.getElementById('powerDisplay').textContent = `${(userData.miningPower || 0.14).toFixed(2)} W`;
+            }
+        }
+
+        function startMining() {
+            if (miningInterval) clearInterval(miningInterval);
+
+            miningInterval = setInterval(async () => {
+                if (!currentUser) return;
+
+                const userRef = ref(database, `users/${currentUser.uid}`);
+                const snapshot = await get(userRef);
+
+                if (snapshot.exists()) {
+                    const userData = snapshot.val();
+                    const miningRate = userData.miningPower || 0.14;
+                    const increment = miningRate / 3600; // Per second
+
+                    await update(userRef, {
+                        claimableProfit: (userData.claimableProfit || 0) + increment
+                    });
+
+                    await updateDisplay();
+                }
+            }, 1000);
+        }
+
+        async function loadWithdrawLogs() {
+            if (!currentUser) return;
+
+            const logsRef = ref(database, `withdrawals/${currentUser.uid}`);
+            const snapshot = await get(logsRef);
+
+            const logsList = document.getElementById('logsList');
+            logsList.innerHTML = '';
+
+            if (snapshot.exists()) {
+                const logs = [];
+                snapshot.forEach(child => {
+                    logs.push({ id: child.key, ...child.val() });
+                });
+
+                logs.sort((a, b) => b.createdAt - a.createdAt).slice(0, 10).forEach(log => {
+                    const logItem = document.createElement('div');
+                    logItem.className = 'log-item';
+                    logItem.innerHTML = `
+                        <div class="log-info">
+                            <div class="log-message">Congratulations ${log.userEmail} for successfully withdrawing</div>
+                            <div class="log-amount">${log.amount.toFixed(2)} W !</div>
+                        </div>
+                        <div class="log-status">${log.status}</div>
+                    `;
+                    logsList.appendChild(logItem);
+                });
+            }
+
+            if (logsList.children.length === 0) {
+                logsList.innerHTML = '<div style="text-align:center;color:#999;padding:20px;">No withdrawal logs yet</div>';
+            }
+        }
+
+        document.getElementById('claimBtn').addEventListener('click', async () => {
+            if (!currentUser) return;
+
+            const btn = document.getElementById('claimBtn');
+            btn.disabled = true;
+
+            const userRef = ref(database, `users/${currentUser.uid}`);
+            const snapshot = await get(userRef);
+
+            if (snapshot.exists()) {
+                const userData = snapshot.val();
+                const claimable = userData.claimableProfit || 0;
+
+                if (claimable > 0) {
+                    await update(userRef, {
+                        profitWallet: (userData.profitWallet || 0) + claimable,
+                        totalProfit: (userData.totalProfit || 0) + claimable,
+                        claimableProfit: 0,
+                        lastClaimTime: Date.now()
+                    });
+
+                    alert(`Successfully claimed ${claimable.toFixed(2)} W!`);
+                    await updateDisplay();
+                } else {
+                    alert('No profits to claim yet!');
+                }
+            }
+
+            btn.disabled = false;
+        });
+    </script>
+</body>
+</html>

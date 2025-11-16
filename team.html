@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Luno Mining - Team</title>
+    <meta name="theme-color" content="#1a1a1a">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #1a1a1a;
+            color: #ffffff;
+            min-height: 100vh;
+            padding-bottom: 70px;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,255,255,.03) 10px, rgba(255,255,255,.03) 20px),
+                repeating-linear-gradient(-45deg, transparent, transparent 10px, rgba(255,255,255,.03) 10px, rgba(255,255,255,.03) 20px);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 480px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .invite-card {
+            background: rgba(42, 42, 42, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 24px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .invite-header {
+            font-size: 16px;
+            color: #999;
+            margin-bottom: 12px;
+        }
+
+        .invite-code {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .code-display {
+            flex: 1;
+            background: rgba(0, 0, 0, 0.4);
+            padding: 16px;
+            border-radius: 12px;
+            font-size: 32px;
+            font-weight: bold;
+            text-align: center;
+            letter-spacing: 4px;
+            color: #ff6b35;
+        }
+
+        .copy-btn {
+            background: linear-gradient(135deg, #ff6b35, #f7931e);
+            border: none;
+            padding: 16px 24px;
+            border-radius: 12px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .copy-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255, 107, 53, 0.4);
+        }
+
+        .share-section {
+            margin-top: 20px;
+        }
+
+        .share-header {
+            font-size: 14px;
+            color: #999;
+            margin-bottom: 12px;
+        }
+
+        .share-link {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 12px;
+            border-radius: 12px;
+            margin-bottom: 16px;
+            font-size: 14px;
+            word-break: break-all;
+        }
+
+        .share-to {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .social-btn {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 24px;
+        }
+
+        .social-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.1);
+        }
+
+        .date-selector {
+            background: rgba(42, 42, 42, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .date-selector svg {
+            width: 24px;
+            height: 24px;
+            color: #ff6b35;
+        }
+
+        .date-text {
+            flex: 1;
+            font-size: 16px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .stat-box {
+            background: rgba(42, 42, 42, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: #999;
+            margin-bottom: 8px;
+        }
+
+        .stat-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        .stat-value.primary {
+            color: #ff6b35;
+        }
+
+        .withdrawals-box {
+            background: rgba(42, 42, 42, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            grid-column: 1 / -1;
+            text-align: center;
+        }
+
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(26, 26, 26, 0.95);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-around;
+            padding: 8px 0;
+            z-index: 100;
+        }
+
+        .nav-item {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            padding: 8px;
+            color: #999;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .nav-item.active {
+            color: #ff6b35;
+        }
+
+        .nav-icon {
+            width: 24px;
+            height: 24px;
+        }
+
+        .nav-label {
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="invite-card">
+            <div class="invite-header">Invitation code:</div>
+            <div class="invite-code">
+                <div class="code-display" id="invitationCode">Loading...</div>
+                <button class="copy-btn" onclick="copyCode()">Copy</button>
+            </div>
+
+            <div class="share-section">
+                <div class="share-header">Share your link and start making money</div>
+                <div class="share-link" id="shareLink">
+                    https://lunomining.com/#/reg?ref=<span id="refCode">000000</span>
+                    <button class="copy-btn" style="padding:8px 16px;font-size:14px;" onclick="copyLink()">Copy</button>
+                </div>
+
+                <div class="share-header">Share To</div>
+                <div class="share-to">
+                    <div class="social-btn" onclick="shareTwitter()">𝕏</div>
+                    <div class="social-btn" onclick="shareFacebook()">📘</div>
+                    <div class="social-btn" onclick="shareTelegram()">✈️</div>
+                    <div class="social-btn" onclick="shareLinkedIn()">💼</div>
+                    <div class="social-btn" onclick="shareWhatsApp()">💬</div>
+                    <div class="social-btn" onclick="shareInstagram()">📷</div>
+                    <div class="social-btn" onclick="shareTikTok()">🎵</div>
+                    <div class="social-btn" onclick="shareMore()">⚙️</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="date-selector">
+            <svg fill="currentColor" viewBox="0 0 24 24">
+                <path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V9h14v10zm0-12H5V5h14v2z"/>
+            </svg>
+            <div class="date-text" id="dateDisplay">Select query date</div>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-box">
+                <div class="stat-label">Total number of team</div>
+                <div class="stat-value" id="teamCount">0</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-label">Total team recharge</div>
+                <div class="stat-value primary" id="teamRecharge">$0</div>
+            </div>
+            <div class="withdrawals-box">
+                <div class="stat-label">Team total withdrawals</div>
+                <div class="stat-value primary" id="teamWithdrawals">$0</div>
+            </div>
+        </div>
+    </div>
+
+    <nav class="bottom-nav">
+        <a href="index.html" class="nav-item">
+            <svg class="nav-icon" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5zm0 18c-4 0-7-3.58-7-8V8.3l7-3.11 7 3.11V12c0 4.42-3 8-7 8z"/>
+            </svg>
+            <span class="nav-label">Mine</span>
+        </a>
+        <a href="leaderboard.html" class="nav-item">
+            <svg class="nav-icon" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M16 11V3H8v6H2v12h20V11h-6zm-6-6h4v14h-4V5zm-6 6h4v8H4v-8zm16 8h-4v-6h4v6z"/>
+            </svg>
+            <span class="nav-label">Leaderboard</span>
+        </a>
+        <a href="upgrade.html" class="nav-item">
+            <svg class="nav-icon" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"/>
+            </svg>
+            <span class="nav-label">Upgrade</span>
+        </a>
+        <a href="team.html" class="nav-item active">
+            <svg class="nav-icon" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
+            </svg>
+            <span class="nav-label">Team</span>
+        </a>
+        <a href="me.html" class="nav-item">
+            <svg class="nav-icon" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+            </svg>
+            <span class="nav-label">Me</span>
+        </a>
+    </nav>
+
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js';
+        import { getAuth, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js';
+        import { getDatabase, ref, get } from 'https://www.gstatic.com/firebasejs/9.22.2/firebase-database.js';
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBtx-D3nbl1lKOhCzEixDZRgRDM4NbtOBE",
+            authDomain: "swiftauth-5fcb5.firebaseapp.com",
+            projectId: "swiftauth-5fcb5",
+            databaseURL: "https://swiftauth-5fcb5-default-rtdb.firebaseio.com",
+            storageBucket: "swiftauth-5fcb5.firebasestorage.app",
+            appId: "1:990160652137:web:abac238567edfdb5671ff8"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const database = getDatabase(app);
+
+        let currentUser = null;
+        let invitationCode = '';
+
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                currentUser = user;
+                await loadTeamData();
+            } else {
+                window.location.href = 'auth_1763222786788.html';
+            }
+        });
+
+        async function loadTeamData() {
+            if (!currentUser) return;
+
+            const userRef = ref(database, `users/${currentUser.uid}`);
+            const snapshot = await get(userRef);
+
+            if (snapshot.exists()) {
+                const userData = snapshot.val();
+                invitationCode = userData.invitationCode || '000000';
+
+                document.getElementById('invitationCode').textContent = invitationCode;
+                document.getElementById('refCode').textContent = invitationCode;
+                document.getElementById('teamCount').textContent = userData.teamSize || 0;
+                document.getElementById('teamRecharge').textContent = `$${(userData.teamProfit || 0).toFixed(2)}`;
+                document.getElementById('teamWithdrawals').textContent = `$${(userData.teamProfit || 0).toFixed(2)}`;
+
+                const today = new Date().toLocaleDateString();
+                document.getElementById('dateDisplay').textContent = today;
+
+                await loadTeamMembers();
+            }
+        }
+
+        async function loadTeamMembers() {
+            if (!currentUser) return;
+
+            const usersRef = ref(database, 'users');
+            const snapshot = await get(usersRef);
+
+            let teamCount = 0;
+            if (snapshot.exists()) {
+                snapshot.forEach(child => {
+                    const user = child.val();
+                    if (user.referredBy === invitationCode) {
+                        teamCount++;
+                    }
+                });
+            }
+
+            document.getElementById('teamCount').textContent = teamCount;
+        }
+
+        window.copyCode = function() {
+            navigator.clipboard.writeText(invitationCode);
+            alert('Invitation code copied!');
+        };
+
+        window.copyLink = function() {
+            const link = `https://lunomining.com/#/reg?ref=${invitationCode}`;
+            navigator.clipboard.writeText(link);
+            alert('Referral link copied!');
+        };
+
+        window.shareTwitter = function() {
+            const text = `Join Luno Mining with my referral code: ${invitationCode}`;
+            const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`;
+            window.open(url, '_blank');
+        };
+
+        window.shareFacebook = function() {
+            const url = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(`https://lunomining.com/#/reg?ref=${invitationCode}`)}`;
+            window.open(url, '_blank');
+        };
+
+        window.shareTelegram = function() {
+            const text = `Join Luno Mining with my referral code: ${invitationCode}`;
+            const url = `https://t.me/share/url?url=${encodeURIComponent(`https://lunomining.com/#/reg?ref=${invitationCode}`)}&text=${encodeURIComponent(text)}`;
+            window.open(url, '_blank');
+        };
+
+        window.shareLinkedIn = function() {
+            const url = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(`https://lunomining.com/#/reg?ref=${invitationCode}`)}`;
+            window.open(url, '_blank');
+        };
+
+        window.shareWhatsApp = function() {
+            const text = `Join Luno Mining with my referral code: ${invitationCode}\nhttps://lunomining.com/#/reg?ref=${invitationCode}`;
+            const url = `https://wa.me/?text=${encodeURIComponent(text)}`;
+            window.open(url, '_blank');
+        };
+
+        window.shareInstagram = function() {
+            alert('Please share your invitation code manually on Instagram: ' + invitationCode);
+        };
+
+        window.shareTikTok = function() {
+            alert('Please share your invitation code manually on TikTok: ' + invitationCode);
+        };
+
+        window.shareMore = function() {
+            const link = `https://lunomining.com/#/reg?ref=${invitationCode}`;
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Join Luno Mining',
+                    text: `Join Luno Mining with my referral code: ${invitationCode}`,
+                    url: link
+                });
+            } else {
+                copyLink();
+            }
+        };
+    </script>
+</body>
+</html>

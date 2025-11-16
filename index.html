@@ -143,21 +143,19 @@
             background: rgba(255, 255, 255, 0.2);
         }
 
-        .mining-container {
-            background: rgba(42, 42, 42, 0.8);
-            backdrop-filter: blur(10px);
-            border-radius: 24px;
-            padding: 32px 20px;
-            text-align: center;
-            margin-bottom: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-        }
+.mining-container {
+    background: #2d2d2d;
+    border-radius: 30px;
+    padding: 40px 20px;
+    text-align: center;
+    margin: 20px 0;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+}
 
-        .mining-fan {
-            width: 240px;
-            height: 240px;
-            margin: 0 auto 24px;
+             .mining-fan {
+          width: 280px;
+           height: 280px;
+            margin: 0 auto 30px;
             position: relative;
             display: flex;
             align-items: center;
@@ -181,21 +179,21 @@
             }
         }
 
-        .mining-rate {
-            font-size: 14px;
-            color: #999;
-            margin-bottom: 12px;
-        }
+.mining-rate {
+    font-size: 16px;
+    color: #cccccc;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+}
 
-        .profit-display {
-            font-size: 48px;
-            font-weight: bold;
-            background: linear-gradient(135deg, #ff6b35, #f7931e);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 8px;
-        }
+.profit-display {
+    font-size: 52px;
+    font-weight: bold;
+    color: #ff7a00;
+    background: none;
+    -webkit-text-fill-color: #ff7a00;
+    margin-bottom: 5px;
+}
 
         .profit-label {
             font-size: 16px;
@@ -203,27 +201,21 @@
             margin-bottom: 24px;
         }
 
-        .power-display {
-            font-size: 32px;
-            font-weight: bold;
-            color: #fff;
-            margin-bottom: 32px;
-        }
+.power-display {
+    font-size: 26px;
+    color: #ffffff;
+    margin-bottom: 25px;
+}
 
-        .claim-btn {
-            width: 100%;
-            max-width: 300px;
-            padding: 16px;
-            background: linear-gradient(135deg, #ff6b35, #f7931e);
-            border: none;
-            border-radius: 50px;
-            color: white;
-            font-size: 18px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 8px 20px rgba(255, 107, 53, 0.4);
-        }
+.claim-btn {
+    width: 100%;
+    padding: 18px;
+    background: linear-gradient(to right, #ffb347, #ff7a00);
+    border-radius: 50px;
+    font-size: 18px;
+    font-weight: bold;
+    box-shadow: 0 6px 18px rgba(255, 122, 0, 0.4);
+}
 
         .claim-btn:hover {
             transform: translateY(-2px);
@@ -237,45 +229,43 @@
         }
 
         .withdraw-logs {
-            background: rgba(42, 42, 42, 0.8);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            margin-bottom: 20px;
-        }
+    background: #2d2d2d;
+    border-radius: 25px;
+    padding: 25px 20px;
+    margin-top: 20px;
+    margin-bottom: 25px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+}
 
-        .logs-header {
-            font-size: 18px;
-            font-weight: bold;
-            margin-bottom: 16px;
-        }
+.  .log-header {
+    font-size: 20px;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 18px;
+}
 
         .log-item {
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 12px;
-            padding: 16px;
-            margin-bottom: 12px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+    background: #1f1f1f;
+    border-radius: 15px;
+    padding: 18px 15px;
+    margin-bottom: 12px;
+}
 
         .log-info {
             flex: 1;
         }
 
-        .log-message {
-            font-size: 14px;
-            color: #ccc;
-            margin-bottom: 4px;
-        }
+         .log-message {
+    font-size: 15px;
+    color: #e0e0e0;
+    margin-bottom: 6px;
+}
 
-        .log-amount {
-            font-size: 18px;
-            font-weight: bold;
-            color: #ff6b35;
-        }
+.log-amount {
+    font-size: 18px;
+    font-weight: 700;
+    color: #ff7a00;
+}
 
         .log-status {
             font-size: 12px;
@@ -334,7 +324,97 @@
             .profit-display {
                 font-size: 36px;
             }
-        }
+        #floatingLogs {
+    position: relative;
+    width: 100%;
+    height: 60px;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+.floating-log {
+    position: absolute;
+    width: 100%;
+    padding: 12px 16px;
+    background: #1f1f1f;
+    border-radius: 12px;
+    color: #ffffff;
+    font-size: 14px;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: floatUp 4s ease forwards;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+@keyframes floatUp {
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    20% {
+        opacity: 1;
+        transform: translateY(10px);
+    }
+    80% {
+        opacity: 1;
+        transform: translateY(-10px);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+
+  .mining-timer {
+    font-size: 28px;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 25px;
+    letter-spacing: 2px;
+    text-shadow:
+        0 0 10px rgba(255, 255, 255, 0.6),
+        0 0 20px rgba(255, 255, 255, 0.4),
+        0 0 30px rgba(255, 255, 255, 0.2);
+    animation: timerGlow 2.5s ease-in-out infinite;
+}
+
+/* ← Put animation right below */
+@keyframes timerGlow {
+    0% {
+        text-shadow:
+            0 0 10px rgba(255, 255, 255, 0.4),
+            0 0 20px rgba(255, 255, 255, 0.2),
+            0 0 30px rgba(255, 255, 255, 0.1);
+    }
+    50% {
+        text-shadow:
+            0 0 20px rgba(255, 255, 255, 0.8),
+            0 0 35px rgba(255, 255, 255, 0.5),
+            0 0 50px rgba(255, 255, 255, 0.3);
+    }
+    100% {
+        text-shadow:
+            0 0 10px rgba(255, 255, 255, 0.4),
+            0 0 20px rgba(255, 255, 255, 0.2),
+            0 0 30px rgba(255, 255, 255, 0.1);
+    }
+
+.progress-bar-container {
+    width: 100%;
+    height: 10px;
+    background: #1e1e1e;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+.progress-bar-fill {
+    width: 0%;
+    height: 100%;
+    background: linear-gradient(to right, #ffb347, #ff7a00);
+    border-radius: 10px;
+    transition: width 0.5s linear;
+}
+}
     </style>
 </head>
 <body>
@@ -355,15 +435,25 @@
 
         <div class="mining-container">
             <div class="mining-fan">
-                <img src="fan.gif" alt="Mining Fan" class="fan.gif">
+                <img src="fan.gif" alt="Mining Fan" class="fan-image">
             </div>
 
             <div class="mining-rate">TO</div>
             <div class="profit-display" id="profitDisplay">0.00 W/H</div>
             <div class="power-display" id="powerDisplay">0.14 W</div>
+            
 
-            <button class="claim-btn" id="claimBtn">CLAIM PROFITS</button>
-        </div>
+<!-- TIMER DISPLAY -->
+ <div id="miningTimer" class="mining-timer">24:00:00</div>
+
+<!-- PROGRESS BAR -->
+<div class="progress-bar-container">
+    <div class="progress-bar-fill" id="progressFill"></div>
+</div>
+
+<button class="claim-btn" id="claimBtn">CLAIM PROFITS</button>
+
+<div id="floatingLogs"></div>
 
         <div class="withdraw-logs">
             <div class="logs-header">WithDraw Logs</div>
@@ -588,6 +678,81 @@
 
             btn.disabled = false;
         });
+ // Floating random withdrawal logs
+const floatingLogs = document.getElementById("floatingLogs");
+
+const randomLogs = [
+    "Congratulations g***x3@nate.com withdrawing 15341.29 W!",
+    "Congratulations p***ko@gmx.com withdrawing 9253.22 W!",
+    "Congratulations +00*****11 withdrawing 7601.74 W!",
+    "Congratulations +65*****45 withdrawing 14907.13 W!",
+    "Congratulations f***89@live.com withdrawing 16271.35 W!",
+];
+
+function showFloatingLog() {
+    const logText = randomLogs[Math.floor(Math.random() * randomLogs.length)];
+
+    const log = document.createElement("div");
+    log.className = "floating-log";
+    log.textContent = logText;
+
+    floatingLogs.appendChild(log);
+
+    setTimeout(() => {
+        log.remove();
+    }, 4000); // Remove after animation
+}
+
+setInterval(showFloatingLog, 4000);
+
+ // --------------------------------------
+// MINING COUNTDOWN (24 hours reset)
+// --------------------------------------
+
+async function startMiningTimer() {
+    if (!currentUser) return;
+
+    const userRef = ref(database, `users/${currentUser.uid}`);
+    const snapshot = await get(userRef);
+
+    if (!snapshot.exists()) return;
+
+    const userData = snapshot.val();
+
+    // if no lastClaimTime, set it
+    if (!userData.lastClaimTime) {
+        await update(userRef, { lastClaimTime: Date.now() });
+        userData.lastClaimTime = Date.now();
+    }
+
+    function updateTimer() {
+    const now = Date.now();
+    const elapsed = now - userData.lastClaimTime;
+
+    const fullDay = 24 * 60 * 60 * 1000; // 24 hours in ms
+    const remaining = fullDay - elapsed;
+
+    if (remaining <= 0) {
+        document.getElementById('miningTimer').textContent = "00:00:00";
+        document.getElementById("progressFill").style.width = "100%";
+        return;
+    }
+
+    const hours = String(Math.floor(remaining / (1000 * 60 * 60))).padStart(2, '0');
+    const minutes = String(Math.floor((remaining % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0');
+    const seconds = String(Math.floor((remaining % (1000 * 60)) / 1000)).padStart(2, '0');
+
+    document.getElementById('miningTimer').textContent = `${hours}:${minutes}:${seconds}`;
+
+    // Update progress bar
+    const progress = Math.min(1 - (remaining / fullDay), 1);
+    document.getElementById("progressFill").style.width = (progress * 100) + "%";
+}
+
+setInterval(updateTimer, 1000);
+updateTimer();
+
+startMiningTimer();
     </script>
 </body>
 </html>

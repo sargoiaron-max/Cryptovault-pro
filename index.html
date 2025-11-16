@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Luno Mining - Mine</title>
+    <title>WQF - WorldQuant Finance</title>
     <meta name="theme-color" content="#1a1a1a">
     <style>
         * {
@@ -90,7 +90,7 @@
             z-index: 1;
             max-width: 480px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 0;
         }
 
         .header {
@@ -98,11 +98,9 @@
             align-items: center;
             justify-content: space-between;
             padding: 16px 20px;
-            background: rgba(42, 42, 42, 0.8);
+            background: rgba(26, 26, 26, 0.95);
             backdrop-filter: blur(10px);
-            border-radius: 16px;
-            margin-bottom: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .logo {
@@ -114,8 +112,8 @@
         .logo-icon {
             width: 40px;
             height: 40px;
-            background: linear-gradient(135deg, #4f46e5, #7c3aed);
-            border-radius: 50%;
+            background: linear-gradient(135deg, #f7931e, #ff6b35);
+            border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -124,167 +122,316 @@
         }
 
         .app-title {
-            font-size: 18px;
+            font-size: 20px;
             font-weight: bold;
+            letter-spacing: 2px;
         }
 
-        .lang-btn {
+        .header-icons {
+            display: flex;
+            gap: 12px;
+        }
+
+        .icon-btn {
+            width: 36px;
+            height: 36px;
             background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            padding: 8px 16px;
-            border-radius: 20px;
-            color: white;
-            font-size: 14px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .lang-btn:hover {
-            background: rgba(255, 255, 255, 0.2);
-        }
-
-        .mining-container {
-            background: rgba(42, 42, 42, 0.8);
-            backdrop-filter: blur(10px);
-            border-radius: 24px;
-            padding: 32px 20px;
-            text-align: center;
-            margin-bottom: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-        }
-
-        .mining-fan {
-            width: 240px;
-            height: 240px;
-            margin: 0 auto 24px;
-            position: relative;
+            border: none;
+            border-radius: 50%;
+            color: #f7931e;
             display: flex;
             align-items: center;
             justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
         }
 
-        .fan-image {
+        .icon-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Hero Carousel */
+        .hero-carousel {
+            position: relative;
             width: 100%;
+            height: 200px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+
+        .carousel-track {
+            display: flex;
+            transition: transform 0.5s ease;
             height: 100%;
-            object-fit: contain;
-            filter: drop-shadow(0 0 20px rgba(79, 70, 229, 0.4));
-            animation: pulse 2s ease-in-out infinite;
         }
 
-        @keyframes pulse {
-            0%, 100% { 
-                filter: drop-shadow(0 0 20px rgba(79, 70, 229, 0.4));
-            }
-            50% { 
-                filter: drop-shadow(0 0 40px rgba(79, 70, 229, 0.7));
-            }
+        .carousel-slide {
+            min-width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+            border-radius: 16px;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            margin: 0 10px;
         }
 
-        .mining-rate {
+        .carousel-slide h2 {
+            font-size: 28px;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        .carousel-slide p {
             font-size: 14px;
-            color: #999;
+            opacity: 0.9;
+        }
+
+        .carousel-dots {
+            position: absolute;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .dot.active {
+            background: #fff;
+            width: 24px;
+            border-radius: 4px;
+        }
+
+        /* Ticker */
+        .ticker-wrapper {
+            background: rgba(42, 42, 42, 0.8);
+            padding: 12px 0;
+            overflow: hidden;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .ticker {
+            display: flex;
+            animation: scroll 30s linear infinite;
+            white-space: nowrap;
+        }
+
+        .ticker-item {
+            padding: 0 40px;
+            font-size: 14px;
+            color: #ccc;
+        }
+
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* Action Grid */
+        .action-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            padding: 30px 20px;
+            background: rgba(26, 26, 26, 0.6);
+        }
+
+        .action-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            color: #fff;
+            transition: transform 0.2s ease;
+            cursor: pointer;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-5px);
+        }
+
+        .action-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, rgba(247, 147, 30, 0.2), rgba(255, 107, 53, 0.2));
+            border: 2px solid rgba(247, 147, 30, 0.5);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+        }
+
+        .action-label {
+            font-size: 12px;
+            text-align: center;
+            color: #f7931e;
+        }
+
+        /* Featured Crypto Cards */
+        .featured-cards {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            padding: 20px;
+            background: rgba(26, 26, 26, 0.6);
+        }
+
+        .crypto-card {
+            padding: 20px;
+            border-radius: 16px;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .crypto-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .crypto-card.btc {
+            background: linear-gradient(135deg, rgba(139, 69, 19, 0.3), rgba(205, 92, 92, 0.3));
+        }
+
+        .crypto-card.eth {
+            background: linear-gradient(135deg, rgba(34, 139, 34, 0.3), rgba(60, 179, 113, 0.3));
+        }
+
+        .crypto-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
             margin-bottom: 12px;
         }
 
-        .profit-display {
-            font-size: 48px;
+        .crypto-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+        }
+
+        .crypto-symbol {
+            font-size: 16px;
             font-weight: bold;
-            background: linear-gradient(135deg, #ff6b35, #f7931e);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+        }
+
+        .crypto-price {
+            font-size: 24px;
+            font-weight: bold;
             margin-bottom: 8px;
         }
 
-        .profit-label {
-            font-size: 16px;
-            color: #ccc;
-            margin-bottom: 24px;
-        }
-
-        .power-display {
-            font-size: 32px;
-            font-weight: bold;
-            color: #fff;
-            margin-bottom: 32px;
-        }
-
-        .claim-btn {
-            width: 100%;
-            max-width: 300px;
-            padding: 16px;
-            background: linear-gradient(135deg, #ff6b35, #f7931e);
-            border: none;
-            border-radius: 50px;
-            color: white;
-            font-size: 18px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 8px 20px rgba(255, 107, 53, 0.4);
-        }
-
-        .claim-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 12px 30px rgba(255, 107, 53, 0.6);
-        }
-
-        .claim-btn:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        .withdraw-logs {
-            background: rgba(42, 42, 42, 0.8);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            margin-bottom: 20px;
-        }
-
-        .logs-header {
-            font-size: 18px;
-            font-weight: bold;
-            margin-bottom: 16px;
-        }
-
-        .log-item {
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 12px;
-            padding: 16px;
-            margin-bottom: 12px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .log-info {
-            flex: 1;
-        }
-
-        .log-message {
-            font-size: 14px;
-            color: #ccc;
-            margin-bottom: 4px;
-        }
-
-        .log-amount {
-            font-size: 18px;
-            font-weight: bold;
-            color: #ff6b35;
-        }
-
-        .log-status {
-            font-size: 12px;
+        .crypto-change {
+            display: inline-block;
             padding: 4px 12px;
             border-radius: 12px;
+            font-size: 12px;
+        }
+
+        .crypto-change.positive {
             background: rgba(16, 185, 129, 0.2);
             color: #10b981;
         }
 
+        .crypto-change.negative {
+            background: rgba(239, 68, 68, 0.2);
+            color: #ef4444;
+        }
+
+        /* Market Table */
+        .market-section {
+            padding: 20px;
+            background: rgba(26, 26, 26, 0.6);
+        }
+
+        .market-tabs {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .market-tab {
+            padding: 10px 20px;
+            background: none;
+            border: none;
+            color: #999;
+            font-size: 14px;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .market-tab.active {
+            color: #fff;
+            border-bottom-color: #f7931e;
+        }
+
+        .market-table {
+            width: 100%;
+        }
+
+        .market-row {
+            display: grid;
+            grid-template-columns: 2fr 2fr 1.5fr;
+            padding: 12px 0;
+            border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        .market-row:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .market-cell {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .coin-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .coin-name {
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .coin-pair {
+            font-size: 12px;
+            color: #999;
+        }
+
+        .price-info {
+            text-align: right;
+        }
+
+        .price {
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .change-info {
+            text-align: right;
+        }
+
+        /* Bottom Navigation */
         .bottom-nav {
             position: fixed;
             bottom: 0;
@@ -313,7 +460,7 @@
         }
 
         .nav-item.active {
-            color: #ff6b35;
+            color: #f7931e;
         }
 
         .nav-icon {
@@ -325,14 +472,84 @@
             font-size: 12px;
         }
 
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 200;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: rgba(42, 42, 42, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 400px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .modal-title {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 28px;
+            cursor: pointer;
+            padding: 0;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-body {
+            color: #ccc;
+            line-height: 1.6;
+        }
+
         @media (max-width: 360px) {
-            .mining-fan {
-                width: 160px;
-                height: 160px;
+            .action-grid {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 15px;
             }
             
-            .profit-display {
-                font-size: 36px;
+            .action-icon {
+                width: 50px;
+                height: 50px;
+                font-size: 24px;
+            }
+
+            .hero-carousel {
+                height: 160px;
+            }
+
+            .carousel-slide h2 {
+                font-size: 22px;
             }
         }
     </style>
@@ -345,58 +562,140 @@
     </div>
 
     <div class="container">
+        <!-- Header -->
         <div class="header">
             <div class="logo">
-                <div class="logo-icon">🌙</div>
-                <span class="app-title">Luno mining</span>
+                <div class="logo-icon">📈</div>
+                <span class="app-title">WQF</span>
             </div>
-            <button class="lang-btn" id="langBtn">English</button>
+            <div class="header-icons">
+                <button class="icon-btn" id="notificationBtn">🔔</button>
+                <button class="icon-btn" id="messageBtn">💬</button>
+            </div>
         </div>
 
-        <div class="mining-container">
-            <div class="mining-fan">
-                <img src="fan.gif" alt="Mining Fan" class="fan.gif">
+        <!-- Hero Carousel -->
+        <div class="hero-carousel">
+            <div class="carousel-track" id="carouselTrack">
+                <div class="carousel-slide" style="background: linear-gradient(135deg, #1e3a8a, #3b82f6);">
+                    <h2>Precision in Every Profit.</h2>
+                    <p>WORLDQUANT FINANCE</p>
+                </div>
+                <div class="carousel-slide" style="background: linear-gradient(135deg, #065f46, #10b981);">
+                    <h2>Where Data Creates Daily Growth</h2>
+                    <p>WORLDQUANT FINANCE</p>
+                </div>
             </div>
-
-            <div class="mining-rate">TO</div>
-            <div class="profit-display" id="profitDisplay">0.00 W/H</div>
-            <div class="power-display" id="powerDisplay">0.14 W</div>
-
-            <button class="claim-btn" id="claimBtn">CLAIM PROFITS</button>
+            <div class="carousel-dots">
+                <div class="dot active" data-slide="0"></div>
+                <div class="dot" data-slide="1"></div>
+            </div>
         </div>
 
-        <div class="withdraw-logs">
-            <div class="logs-header">WithDraw Logs</div>
-            <div id="logsList"></div>
+        <!-- Ticker -->
+        <div class="ticker-wrapper">
+            <div class="ticker" id="ticker">
+                <span class="ticker-item">📊 AI Quantitative Engine - Cutting-edge algorithms continuously monitor global markets</span>
+                <span class="ticker-item">⚡ Massive Computing Power - Processing millions of data points every second</span>
+                <span class="ticker-item">🤖 Autonomous Smart Strategies - 24/7 operation with machine learning adaptation</span>
+                <span class="ticker-item">🔒 Transparency & Security - Built on blockchain verification</span>
+                <span class="ticker-item">📊 AI Quantitative Engine - Cutting-edge algorithms continuously monitor global markets</span>
+                <span class="ticker-item">⚡ Massive Computing Power - Processing millions of data points every second</span>
+            </div>
+        </div>
+
+        <!-- Action Grid -->
+        <div class="action-grid">
+            <a href="#" class="action-btn" data-action="recharge">
+                <div class="action-icon">💰</div>
+                <div class="action-label">Recharge</div>
+            </a>
+            <a href="#" class="action-btn" data-action="withdraw">
+                <div class="action-icon">🏧</div>
+                <div class="action-label">Withdraw</div>
+            </a>
+            <a href="#" class="action-btn" data-action="help">
+                <div class="action-icon">❓</div>
+                <div class="action-label">Help</div>
+            </a>
+            <a href="#" class="action-btn" data-action="team">
+                <div class="action-icon">👥</div>
+                <div class="action-label">Team</div>
+            </a>
+            <a href="#" class="action-btn" data-action="download">
+                <div class="action-icon">☁️</div>
+                <div class="action-label">Download APP</div>
+            </a>
+            <a href="#" class="action-btn" data-action="activity">
+                <div class="action-icon">⭐</div>
+                <div class="action-label">Activity</div>
+            </a>
+            <a href="#" class="action-btn" data-action="agent">
+                <div class="action-icon">🤝</div>
+                <div class="action-label">Agent Cooperation</div>
+            </a>
+            <a href="#" class="action-btn" data-action="invite">
+                <div class="action-icon">👤</div>
+                <div class="action-label">Invite Friends</div>
+            </a>
+        </div>
+
+        <!-- Featured Crypto Cards -->
+        <div class="featured-cards">
+            <div class="crypto-card btc" data-crypto="BTC">
+                <div class="crypto-header">
+                    <div class="crypto-icon">🟠</div>
+                    <div class="crypto-symbol">BTC/USDT</div>
+                </div>
+                <div class="crypto-price" id="btcPrice">95895.2</div>
+                <div class="crypto-change negative">-0.39%</div>
+            </div>
+            <div class="crypto-card eth" data-crypto="ETH">
+                <div class="crypto-header">
+                    <div class="crypto-icon">💎</div>
+                    <div class="crypto-symbol">ETH/USDT</div>
+                </div>
+                <div class="crypto-price" id="ethPrice">3202.0733</div>
+                <div class="crypto-change positive">+0.64%</div>
+            </div>
+        </div>
+
+        <!-- Market Section -->
+        <div class="market-section">
+            <div class="market-tabs">
+                <button class="market-tab">BINANCE</button>
+                <button class="market-tab active">OKX</button>
+                <button class="market-tab">HUOBI</button>
+                <button class="market-tab">COINBASE</button>
+            </div>
+            
+            <div class="market-table" id="marketTable">
+                <!-- Market rows will be inserted here -->
+            </div>
         </div>
     </div>
 
+    <!-- Bottom Navigation -->
     <nav class="bottom-nav">
-        <a href="index.html" class="nav-item active" data-testid="nav-mine">
+        <a href="index.html" class="nav-item active">
             <svg class="nav-icon" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5zm0 18c-4 0-7-3.58-7-8V8.3l7-3.11 7 3.11V12c0 4.42-3 8-7 8z"/>
+                <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
             </svg>
-            <span class="nav-label">Mine</span>
+            <span class="nav-label">Home</span>
         </a>
-        <a href="leaderboard.html" class="nav-item" data-testid="nav-leaderboard">
+        <a href="leaderboard.html" class="nav-item">
             <svg class="nav-icon" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M16 11V3H8v6H2v12h20V11h-6zm-6-6h4v14h-4V5zm-6 6h4v8H4v-8zm16 8h-4v-6h4v6z"/>
             </svg>
-            <span class="nav-label">Leaderboard</span>
+            <span class="nav-label">Quantify</span>
         </a>
-        <a href="upgrade.html" class="nav-item" data-testid="nav-upgrade">
-            <svg class="nav-icon" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"/>
-            </svg>
-            <span class="nav-label">Upgrade</span>
-        </a>
-        <a href="team.html" class="nav-item" data-testid="nav-team">
+        <a href="team.html" class="nav-item">
             <svg class="nav-icon" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
             </svg>
-            <span class="nav-label">Team</span>
+            <span class="nav-label">Invite Friends</span>
         </a>
-        <a href="me.html" class="nav-item" data-testid="nav-me">
+        <a href="me.html" class="nav-item">
             <svg class="nav-icon" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
             </svg>
@@ -404,10 +703,23 @@
         </a>
     </nav>
 
+    <!-- Modals -->
+    <div class="modal" id="actionModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="modalTitle">Feature</h2>
+                <button class="close-btn" id="closeModal">&times;</button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                Loading...
+            </div>
+        </div>
+    </div>
+
     <script type="module">
         import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js';
         import { getAuth, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js';
-        import { getDatabase, ref, get, set, update } from 'https://www.gstatic.com/firebasejs/9.22.2/firebase-database.js';
+        import { getDatabase, ref, get } from 'https://www.gstatic.com/firebasejs/9.22.2/firebase-database.js';
 
         const firebaseConfig = {
             apiKey: "AIzaSyBtx-D3nbl1lKOhCzEixDZRgRDM4NbtOBE",
@@ -421,6 +733,8 @@
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const database = getDatabase(app);
+
+        let currentUser = null;
 
         // Check session
         function checkUserSession() {
@@ -447,16 +761,12 @@
             window.location.href = 'auth.html';
         }
 
-        let currentUser = null;
-        let miningInterval = null;
-
         onAuthStateChanged(auth, async (user) => {
             if (user) {
                 currentUser = user;
                 await loadUserData();
-                startMining();
             } else {
-                window.location.href = 'auth_1763222786788.html';
+                window.location.href = 'auth.html';
             }
         });
 
@@ -466,128 +776,156 @@
             const userRef = ref(database, `users/${currentUser.uid}`);
             const snapshot = await get(userRef);
 
-            if (!snapshot.exists()) {
-                const invitationCode = Math.floor(100000 + Math.random() * 900000).toString();
-                await set(userRef, {
-                    email: currentUser.email,
-                    miningPower: 0.14,
-                    totalProfit: 0,
-                    claimableProfit: 0,
-                    walletBalance: 0,
-                    profitWallet: 0,
-                    rechargeWallet: 0,
-                    invitationCode: invitationCode,
-                    teamSize: 0,
-                    teamProfit: 0,
-                    lastClaimTime: Date.now(),
-                    createdAt: Date.now()
-                });
-            }
-
-            await updateDisplay();
-            await loadWithdrawLogs();
-        }
-
-        async function updateDisplay() {
-            if (!currentUser) return;
-
-            const userRef = ref(database, `users/${currentUser.uid}`);
-            const snapshot = await get(userRef);
-
             if (snapshot.exists()) {
                 const userData = snapshot.val();
-                document.getElementById('profitDisplay').textContent = `${(userData.claimableProfit || 0).toFixed(2)} W/H`;
-                document.getElementById('powerDisplay').textContent = `${(userData.miningPower || 0.14).toFixed(2)} W`;
+                console.log('User data loaded:', userData);
             }
         }
 
-        function startMining() {
-            if (miningInterval) clearInterval(miningInterval);
+        // Carousel functionality
+        let currentSlide = 0;
+        const track = document.getElementById('carouselTrack');
+        const dots = document.querySelectorAll('.dot');
 
-            miningInterval = setInterval(async () => {
-                if (!currentUser) return;
-
-                const userRef = ref(database, `users/${currentUser.uid}`);
-                const snapshot = await get(userRef);
-
-                if (snapshot.exists()) {
-                    const userData = snapshot.val();
-                    const miningRate = userData.miningPower || 0.14;
-                    const increment = miningRate / 3600; // Per second
-
-                    await update(userRef, {
-                        claimableProfit: (userData.claimableProfit || 0) + increment
-                    });
-
-                    await updateDisplay();
-                }
-            }, 1000);
+        function goToSlide(index) {
+            currentSlide = index;
+            track.style.transform = `translateX(-${index * 100}%)`;
+            dots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === index);
+            });
         }
 
-        async function loadWithdrawLogs() {
-            if (!currentUser) return;
-
-            const logsRef = ref(database, `withdrawals/${currentUser.uid}`);
-            const snapshot = await get(logsRef);
-
-            const logsList = document.getElementById('logsList');
-            logsList.innerHTML = '';
-
-            if (snapshot.exists()) {
-                const logs = [];
-                snapshot.forEach(child => {
-                    logs.push({ id: child.key, ...child.val() });
-                });
-
-                logs.sort((a, b) => b.createdAt - a.createdAt).slice(0, 10).forEach(log => {
-                    const logItem = document.createElement('div');
-                    logItem.className = 'log-item';
-                    logItem.innerHTML = `
-                        <div class="log-info">
-                            <div class="log-message">Congratulations ${log.userEmail} for successfully withdrawing</div>
-                            <div class="log-amount">${log.amount.toFixed(2)} W !</div>
-                        </div>
-                        <div class="log-status">${log.status}</div>
-                    `;
-                    logsList.appendChild(logItem);
-                });
-            }
-
-            if (logsList.children.length === 0) {
-                logsList.innerHTML = '<div style="text-align:center;color:#999;padding:20px;">No withdrawal logs yet</div>';
-            }
-        }
-
-        document.getElementById('claimBtn').addEventListener('click', async () => {
-            if (!currentUser) return;
-
-            const btn = document.getElementById('claimBtn');
-            btn.disabled = true;
-
-            const userRef = ref(database, `users/${currentUser.uid}`);
-            const snapshot = await get(userRef);
-
-            if (snapshot.exists()) {
-                const userData = snapshot.val();
-                const claimable = userData.claimableProfit || 0;
-
-                if (claimable > 0) {
-                    await update(userRef, {
-                        profitWallet: (userData.profitWallet || 0) + claimable,
-                        totalProfit: (userData.totalProfit || 0) + claimable,
-                        claimableProfit: 0,
-                        lastClaimTime: Date.now()
-                    });
-
-                    alert(`Successfully claimed ${claimable.toFixed(2)} W!`);
-                    await updateDisplay();
-                } else {
-                    alert('No profits to claim yet!');
-                }
-            }
-
-            btn.disabled = false;
+        dots.forEach(dot => {
+            dot.addEventListener('click', () => {
+                goToSlide(parseInt(dot.dataset.slide));
+            });
         });
+
+        // Auto-rotate carousel
+        setInterval(() => {
+            currentSlide = (currentSlide + 1) % 2;
+            goToSlide(currentSlide);
+        }, 5000);
+
+        // Market data
+        const marketData = [
+            { symbol: 'BTC', name: 'Bitcoin', pair: '/USDT', price: '95895.2', change: '-0.39%', negative: true },
+            { symbol: 'ETH', name: 'Ethereum', pair: '/USDT', price: '3202.0733', change: '+0.64%', negative: false },
+            { symbol: 'BNB', name: 'Binance Coin', pair: '/USDT', price: '939.24', change: '+0.77%', negative: false },
+            { symbol: 'XRP', name: 'Ripple', pair: '/USDT', price: '2.2511399', change: '-1.69%', negative: true },
+            { symbol: 'ADA', name: 'Cardano', pair: '/USDT', price: '0.50287', change: '-1.56%', negative: true },
+            { symbol: 'SOL', name: 'Solana', pair: '/USDT', price: '141.3653', change: '-0.92%', negative: true },
+            { symbol: 'DOGE', name: 'Dogecoin', pair: '/USDT', price: '0.163638', change: '+0.53%', negative: false },
+            { symbol: 'DOT', name: 'Polkadot', pair: '/USDT', price: '2.859', change: '-0.9%', negative: true },
+            { symbol: 'LTC', name: 'Litecoin', pair: '/USDT', price: '102.6346', change: '-2.52%', negative: true },
+            { symbol: 'TRX', name: 'Tron', pair: '/USDT', price: '0.29677', change: '+0.81%', negative: false },
+            { symbol: 'SHIB', name: 'Shiba Inu', pair: '/USDT', price: '0.00000913', change: '-0.76%', negative: true },
+            { symbol: 'AVAX', name: 'Avalanche', pair: '/USDT', price: '15.668', change: '+0.27%', negative: false }
+        ];
+
+        const marketTable = document.getElementById('marketTable');
+        marketData.forEach(coin => {
+            const row = document.createElement('div');
+            row.className = 'market-row';
+            row.innerHTML = `
+                <div class="market-cell">
+                    <div class="crypto-icon">${coin.symbol === 'BTC' ? '🟠' : coin.symbol === 'ETH' ? '💎' : '🪙'}</div>
+                    <div class="coin-info">
+                        <div class="coin-name">${coin.symbol}</div>
+                        <div class="coin-pair">${coin.pair}</div>
+                    </div>
+                </div>
+                <div class="market-cell price-info">
+                    <div class="price" style="color: ${coin.negative ? '#ef4444' : '#10b981'}">${coin.price}</div>
+                </div>
+                <div class="market-cell change-info">
+                    <div class="crypto-change ${coin.negative ? 'negative' : 'positive'}">${coin.change}</div>
+                </div>
+            `;
+            marketTable.appendChild(row);
+        });
+
+        // Action buttons
+        const actionBtns = document.querySelectorAll('.action-btn');
+        const modal = document.getElementById('actionModal');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalBody = document.getElementById('modalBody');
+        const closeModal = document.getElementById('closeModal');
+
+        const actionContent = {
+            recharge: {
+                title: 'Recharge',
+                body: '<p>Deposit funds to your account to start trading.</p><p>Minimum deposit: 10 USDT</p><p>Processing time: Instant</p>'
+            },
+            withdraw: {
+                title: 'Withdraw',
+                body: '<p>Withdraw your profits securely.</p><p>Minimum withdrawal: 20 USDT</p><p>Processing time: 1-24 hours</p>'
+            },
+            help: {
+                title: 'Help Center',
+                body: '<p>📚 <strong>Frequently Asked Questions</strong></p><p>• How to get started?</p><p>• How to deposit funds?</p><p>• How to withdraw?</p><p>• What are the fees?</p><p><br>📞 Contact Support: support@wqf.com</p>'
+            },
+            team: {
+                title: 'Team',
+                body: '<p>Build your team and earn rewards!</p><p>Invite friends and earn commission on their trading activity.</p><p>Commission Rate: Up to 10%</p>'
+            },
+            download: {
+                title: 'Download APP',
+                body: '<p>Download our mobile app for trading on the go!</p><p>📱 Available on iOS and Android</p><p>🔒 Secure and fast</p>'
+            },
+            activity: {
+                title: 'Activity',
+                body: '<p>🎉 Current Promotions:</p><p>• New user bonus: 50 USDT</p><p>• Trading competition</p><p>• Referral rewards</p>'
+            },
+            agent: {
+                title: 'Agent Cooperation',
+                body: '<p>Become a WQF agent and earn substantial commissions.</p><p>Benefits:</p><p>• High commission rates</p><p>• Marketing support</p><p>• Dedicated account manager</p>'
+            },
+            invite: {
+                title: 'Invite Friends',
+                body: '<p>Share your referral code and earn rewards!</p><p>Your Code: <strong>WQF' + (currentUser ? currentUser.uid.substring(0, 6).toUpperCase() : 'XXXXX') + '</strong></p><p>Earn 10% of your friends\' trading fees!</p>'
+            }
+        };
+
+        actionBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const action = btn.dataset.action;
+                const content = actionContent[action];
+                
+                modalTitle.textContent = content.title;
+                modalBody.innerHTML = content.body;
+                modal.classList.add('active');
+            });
+        });
+
+        closeModal.addEventListener('click', () => {
+            modal.classList.remove('active');
+        });
+
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.classList.remove('active');
+            }
+        });
+
+        // Update prices periodically (simulated)
+        function updatePrices() {
+            const btcPrice = document.getElementById('btcPrice');
+            const ethPrice = document.getElementById('ethPrice');
+            
+            // Simulate small price changes
+            const btcChange = (Math.random() - 0.5) * 100;
+            const ethChange = (Math.random() - 0.5) * 10;
+            
+            const newBtcPrice = parseFloat(btcPrice.textContent) + btcChange;
+            const newEthPrice = parseFloat(ethPrice.textContent) + ethChange;
+            
+            btcPrice.textContent = newBtcPrice.toFixed(2);
+            ethPrice.textContent = newEthPrice.toFixed(4);
+        }
+
+        setInterval(updatePrices, 10000);
     </script>
 </body>
 </html>

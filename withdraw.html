@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Withdraw - WQF</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #000;
+            color: #fff;
+            min-height: 100vh;
+        }
+        .header {
+            padding: 16px 20px;
+            background: #000;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .back-btn {
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 0;
+        }
+        .header h1 {
+            font-size: 18px;
+            font-weight: 500;
+        }
+        .content {
+            padding: 20px;
+            max-width: 480px;
+            margin: 0 auto;
+        }
+        .info-banner {
+            background: rgba(42, 42, 42, 0.8);
+            border-radius: 12px;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        .info-banner-icon {
+            font-size: 24px;
+        }
+        .info-banner-text {
+            color: #ef4444;
+            font-size: 14px;
+        }
+        .balance-card {
+            background: rgba(26, 26, 26, 0.95);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .balance-label {
+            color: #999;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+        .balance-amount {
+            font-size: 32px;
+            font-weight: bold;
+            color: #f7931e;
+            margin-bottom: 16px;
+        }
+        .balance-amount span {
+            font-size: 18px;
+            color: #ccc;
+            margin-left: 8px;
+        }
+        .processing-info {
+            display: flex;
+            justify-content: space-between;
+            color: #999;
+            font-size: 13px;
+        }
+        .form-section {
+            margin-bottom: 20px;
+        }
+        .section-title {
+            color: #ccc;
+            font-size: 14px;
+            margin-bottom: 12px;
+        }
+        .payment-methods {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .payment-method {
+            background: rgba(42, 42, 42, 0.8);
+            border: 1px solid rgba(247, 147, 30, 0.3);
+            border-radius: 12px;
+            padding: 10px 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .payment-method.active {
+            background: rgba(247, 147, 30, 0.2);
+            border-color: #f7931e;
+        }
+        .payment-method:hover {
+            border-color: #f7931e;
+        }
+        .payment-icon {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+        }
+        .input-group {
+            margin-bottom: 16px;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 16px;
+            background: rgba(26, 26, 26, 0.95);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            color: #fff;
+            font-size: 15px;
+        }
+        input::placeholder {
+            color: #666;
+        }
+        .input-with-icon {
+            position: relative;
+        }
+        .input-icon {
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #999;
+            cursor: pointer;
+        }
+        .fee-section {
+            background: rgba(26, 26, 26, 0.6);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 20px;
+        }
+        .fee-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 13px;
+        }
+        .fee-label {
+            color: #999;
+        }
+        .fee-value {
+            color: #fff;
+        }
+        .fee-value.green {
+            color: #10b981;
+        }
+        .fee-note {
+            font-size: 11px;
+            color: #666;
+            margin-top: 8px;
+        }
+        .confirm-btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #f7931e, #ff6b35);
+            border: none;
+            border-radius: 50px;
+            color: #fff;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .confirm-btn:hover {
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <button class="back-btn" onclick="history.back()">‹</button>
+        <h1>WithDraw</h1>
+    </div>
+    <div class="content">
+        <div class="info-banner">
+            <div class="info-banner-icon">⏰</div>
+            <div class="info-banner-text">24-hour withdrawal</div>
+        </div>
+
+        <div class="balance-card">
+            <div class="balance-label">Withdrawable</div>
+            <div class="balance-amount" id="withdrawableAmount">0.000000 <span>USDT</span></div>
+            <div class="processing-info">
+                <span>Amount to be processed</span>
+                <span id="processingAmount">0 USDT</span>
+            </div>
+        </div>
+
+        <div class="form-section">
+            <div class="section-title">Payment method</div>
+            <div class="payment-methods">
+                <div class="payment-method active">
+                    <div class="payment-icon" style="background: linear-gradient(135deg, #26a69a, #4db6ac);">💎</div>
+                    <span>BEP20-USDT</span>
+                </div>
+                <div class="payment-method">
+                    <div class="payment-icon" style="background: linear-gradient(135deg, #8e24aa, #ab47bc);">⬡</div>
+                    <span>POLYGON-USDT</span>
+                </div>
+                <div class="payment-method">
+                    <div class="payment-icon" style="background: linear-gradient(135deg, #26a69a, #4db6ac);">💎</div>
+                    <span>TRC20-USDT</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="input-group">
+            <input type="text" placeholder="Withdrawal limit range 2.000 - 99999999" id="withdrawAmount">
+        </div>
+
+        <div class="input-group">
+            <input type="text" placeholder="Withdrawal Address" id="withdrawAddress">
+        </div>
+
+        <div class="input-group input-with-icon">
+            <input type="password" placeholder="Security Password" id="securityPassword">
+            <span class="input-icon" onclick="togglePassword()">👁</span>
+        </div>
+
+        <div class="fee-section">
+            <div class="fee-row">
+                <span class="fee-label">Handling Fee</span>
+                <span class="fee-value" id="handlingFee">0 USDT</span>
+            </div>
+            <div class="fee-note">Number of remaining fee-free withdrawals: <span style="color: #fff;">1</span></div>
+            <div class="fee-row" style="margin-top: 12px;">
+                <span class="fee-label">Receipt</span>
+                <span class="fee-value green" id="receiptAmount">0 USDT</span>
+            </div>
+        </div>
+
+        <button class="confirm-btn" onclick="confirmWithdraw()">Confirm</button>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js';
+        import { getAuth, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js';
+        import { getDatabase, ref, get } from 'https://www.gstatic.com/firebasejs/9.22.2/firebase-database.js';
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBtx-D3nbl1lKOhCzEixDZRgRDM4NbtOBE",
+            authDomain: "swiftauth-5fcb5.firebaseapp.com",
+            projectId: "swiftauth-5fcb5",
+            databaseURL: "https://swiftauth-5fcb5-default-rtdb.firebaseio.com",
+            storageBucket: "swiftauth-5fcb5.firebasestorage.app",
+            appId: "1:990160652137:web:abac238567edfdb5671ff8"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const database = getDatabase(app);
+
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                const userRef = ref(database, `users/${user.uid}`);
+                const snapshot = await get(userRef);
+                if (snapshot.exists()) {
+                    const userData = snapshot.val();
+                    const withdrawable = userData.profitWallet || 0;
+                    document.getElementById('withdrawableAmount').innerHTML = `${withdrawable.toFixed(6)} <span>USDT</span>`;
+                }
+            }
+        });
+
+        window.togglePassword = function() {
+            const input = document.getElementById('securityPassword');
+            input.type = input.type === 'password' ? 'text' : 'password';
+        }
+
+        window.confirmWithdraw = function() {
+            const amount = document.getElementById('withdrawAmount').value;
+            const address = document.getElementById('withdrawAddress').value;
+            const password = document.getElementById('securityPassword').value;
+
+            if (!amount || !address || !password) {
+                alert('Please fill in all fields');
+                return;
+            }
+
+            alert('Withdrawal request submitted!\n\nAmount: ' + amount + ' USDT\nAddress: ' + address + '\n\nProcessing time: 1-24 hours');
+        }
+
+        document.querySelectorAll('.payment-method').forEach(method => {
+            method.addEventListener('click', function() {
+                document.querySelectorAll('.payment-method').forEach(m => m.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        document.getElementById('withdrawAmount').addEventListener('input', function(e) {
+            const amount = parseFloat(e.target.value) || 0;
+            const fee = 0;
+            const receipt = amount - fee;
+            document.getElementById('handlingFee').textContent = fee.toFixed(2) + ' USDT';
+            document.getElementById('receiptAmount').textContent = receipt.toFixed(2) + ' USDT';
+        });
+    </script>
+</body>
+</html>
